@@ -19,4 +19,5 @@ app.listen(3001, () => {
   console.log('Application started on port 3001!');
 });
 
+// List of all api routes
 userRoutes(app);
