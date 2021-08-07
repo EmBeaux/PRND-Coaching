@@ -2,26 +2,23 @@
   <fvMain>
     <fvSidebar v-model="sidebar" class="sidebar">
       <div class="fv-text-center fv-padding">
-        <fvAvatar name="Default User" src="https://randomuser.me/api/portraits/women/44.jpg" size="128px" />
-        <h2 class="fv-padding-sm">
-          Default User
-        </h2>
+        Hello World
       </div>
       <fvList parent>
         <fvListItem class="selected">
-          <i class="material-icons">sentiment_very_satisfied</i> Welcome
+          Hello World
         </fvListItem>
-        <fvListItem disabled>
-          <i class="material-icons">person</i> Profile
+        <fvListItem>
+          <i class="material-icons">person</i> Hello World
         </fvListItem>
-        <fvListItem disabled>
-          <i class="material-icons">mail</i> Messages
+        <fvListItem>
+          <i class="material-icons">mail</i> Hello World
         </fvListItem>
-        <fvListItem disabled>
-          <i class="material-icons">event_available</i> Events
+        <fvListItem>
+          <i class="material-icons">event_available</i> Hello World
         </fvListItem>
-        <fvListItem disabled>
-          <i class="material-icons">photo</i> Pictures
+        <fvListItem>
+          <i class="material-icons">photo</i> Hello World
         </fvListItem>
       </fvList>
     </fvSidebar>
@@ -31,101 +28,54 @@
           <i class="material-icons">menu</i>
         </fvButton>
         <div class="fv-margin-end">
-          <FramevuerkLogo />
+          This is the logo
         </div>
         <div class="fv-grow">
           <h2 class="fv-hidden-xs">
-            Framevuerk
+            Or is this the title
           </h2>
-          <small class="fv-hidden-sm fv-hidden-xs"> Generated Nuxt + Framevuerk Template </small>
+          <small class="fv-hidden-sm fv-hidden-xs"> I think this is the titlle </small>
         </div>
         <fvButton class="fv-margin-end" @click.prevent="toggleDocsMenu">
           <i class="material-icons">list</i>
-          <span class="fv-hidden-xs fv-hidden-sm"> Documents </span>
+          <span class="fv-hidden-xs fv-hidden-sm"> Hello World </span>
           <fvMenu v-model="docsMenu">
             <div>
               <div class="fv-border-bottom fv-padding">
-                <label class="fv-text-light"> <i class="material-icons">list</i> Documents </label>
+                <label class="fv-text-light"> <i class="material-icons">list</i> Hello World </label>
               </div>
               <div class="fv-padding">
-                <a class="fv-link fv-block fv-margin-bottom" target="_blank" rel="noopener noreferrer" href="https://www.framevuerk.com/"><i class="material-icons">link</i> Framevuerk Docs</a>
+                <!-- <a class="fv-link fv-block fv-margin-bottom" target="_blank" rel="noopener noreferrer" href="https://www.framevuerk.com/"><i class="material-icons">link</i> Framevuerk Docs</a>
                 <a class="fv-link fv-block fv-margin-bottom" target="_blank" rel="noopener noreferrer" href="https://github.com/framevuerk/framevuerk"><i class="material-icons">link</i> Framevuerk on Github</a>
                 <a class="fv-link fv-block fv-margin-bottom" target="_blank" rel="noopener noreferrer" href="https://nuxtjs.org/"><i class="material-icons">link</i> Nuxt Docs</a>
-                <a class="fv-link fv-block" target="_blank" rel="noopener noreferrer" href="https://github.com/nuxt/nuxt.js"><i class="material-icons">link</i> Nuxt on GitHub</a>
+                <a class="fv-link fv-block" target="_blank" rel="noopener noreferrer" href="https://github.com/nuxt/nuxt.js"><i class="material-icons">link</i> Nuxt on GitHub</a> -->
               </div>
             </div>
           </fvMenu>
         </fvButton>
         <fvButton class="fv-margin-end">
           <i class="material-icons">clear</i>
-          <span class="fv-hidden-xs fv-hidden-sm"> Cancel </span>
+          <span class="fv-hidden-xs fv-hidden-sm"> header </span>
         </fvButton>
         <fvButton>
           <i class="material-icons">done</i>
-          <span class="fv-hidden-xs fv-hidden-sm"> Submit </span>
+          <span class="fv-hidden-xs fv-hidden-sm"> header 2 </span>
         </fvButton>
       </fvHeader>
       <div class="content fv-padding">
         <div class="fv-margin-bottom fv-hidden-xs fv-hidden-sm" />
         <div class="content__header fv-margin-bottom fv-padding">
           <div class="fv-padding fv-margin-bottom fv-text-center">
-            <NuxtLogo />
+            Hello World
           </div>
           <p>
-            <b>Framevuerk</b> is a Fast, Responsive, Without Dependencies, Both Direction Support and Configurable UI Framework based on <b>Vue.js</b>.
-            In this template we just add it to <b>Nuxt.js</b> and put some of most usable component inside a form to show you how it's look like.
+            Hello World
           </p>
         </div>
         <div class="content__body fv-border fv-radius fv-shadow">
-          <label class="fv-control-label fv-padding"> <i class="material-icons">person_add</i> Create New User </label>
+          <label class="fv-control-label fv-padding"> <i class="material-icons">person_add</i>Hello World</label>
           <div class="fv-padding container">
-            <fvForm class="fv-row">
-              <fvFormElement class="fv-col-md-6" label="First Name">
-                <fvInput v-model="exmps.firstName" placeholder="Enter First Name" />
-              </fvFormElement>
-              <fvFormElement class="fv-col-md-6" label="Last Name">
-                <fvInput v-model="exmps.lastName" placeholder="Enter Last Name" />
-              </fvFormElement>
-              <fvFormElement class="fv-col-12" label="Gender" inline>
-                <fvCheck v-model="exmps.gender" content="m">
-                  Men
-                </fvCheck>
-                <fvCheck v-model="exmps.gender" content="f">
-                  Women
-                </fvCheck>
-                <fvCheck v-model="exmps.gender" :content="null">
-                  Other
-                </fvCheck>
-              </fvFormElement>
-              <fvFormElement class="fv-col-12" label="Home to Work Distance">
-                <template slot="label" slot-scope="scope">
-                  {{ scope.label }}
-                  <span class="fv-margin-start-sm fv-text-primary">
-                    <span v-if="exmps.htw">~{{ exmps.htw }}km</span>
-                  </span>
-                </template>
-                <fvRange v-model="exmps.htw" :data="{from: 1, to: 35}" />
-              </fvFormElement>
-              <fvFormElement class="fv-col-sm-4" label="Is Maried?" inline>
-                <fvSwitch v-model="exmps.married" @input="exmps.marriageDate = undefined" />
-              </fvFormElement>
-              <fvFormElement class="fv-col-sm-8" label="Date of Marriage">
-                <fvDatepicker v-model="exmps.marriageDate" placeholder="Enter Date of Marriage" :disabled="!exmps.married" />
-              </fvFormElement>
-              <fvFormElement class="fv-col" label="Living Continent">
-                <fvSelect
-                  v-model="exmps.continent"
-                  placeholder="Enter Living Continent"
-                  :options="['Africa','Antarctica','Asia','Europe','North America','Australia/Oceania','South America']"
-                  text-key=""
-                  value-key=""
-                  disabled-key=""
-                />
-              </fvFormElement>
-              <fvFormElement class="fv-col-12" label="Biography">
-                <fvTextarea v-model="exmps.bio" placeholder="Enter Your Biography" auto-height />
-              </fvFormElement>
-            </fvForm>
+
           </div>
         </div>
       </div>
@@ -135,6 +85,7 @@
 
 <script>
 import FramevuerkLogo from '~/components/FramevuerkLogo.vue'
+import Api from '~/routes/Api.ts';
 
 export default {
   components: {
@@ -156,6 +107,10 @@ export default {
         bio: undefined
       }
     }
+  },
+  async mounted() {
+    const foo = await Api().get('posts')
+    console.log(foo);
   },
   methods: {
     toggleSidebar () {

@@ -23,7 +23,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'framevuerk/dist/framevuerk-nuxt.min.css'
+    'framevuerk/dist/framevuerk.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
