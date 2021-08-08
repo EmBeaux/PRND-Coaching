@@ -25,7 +25,7 @@ export default {
         })
     },
     read(_req: Request, res: Response) {
-        User.find({}).then((data)=> {
+        User.find({}).then((data: any)=> {
             res.send({
               users: data
             })

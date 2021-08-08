@@ -1,7 +1,8 @@
 import userServices from "../services/user.service"
 import { Request, Response } from 'express';
+import { Express } from 'express'
 
-export default (app) => {
+export default (app: Express) => {
     app.post('/users', (req: Request, res: Response) => {
         userServices.create(req, res);
     })
