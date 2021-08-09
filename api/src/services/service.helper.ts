@@ -25,8 +25,8 @@ export default (model: Model<any>, record: String) => {
                 res.send({ success: true, message: `${record} updated successfully!`})
             })
         },
-        read(_req: Request, res: Response) {
-            model.find({}).then((data: any)=> {
+        read(req: Request, res: Response) {
+            model.find(req.query).then((data: any)=> {
                 const payload = {};
                 payload[record + "s"] = data;
                 res.send(payload);

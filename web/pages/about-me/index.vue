@@ -20,13 +20,13 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import '@nuxt/types'
 import { apiCall } from '../../library/api.helper';
 
 @Component
 export default class HomeIndex extends Vue {
   async mounted() {
-    const foo = await apiCall("get", "users")
-    debugger;
+    await apiCall("get", "pageText", { params: { page: this.$route.name } })
   }
 }
 </script>

@@ -14,8 +14,11 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env"
-    ],
+      "@types/node",
+      "@nuxt/vue-app",
+      "webpack-env",
+      "@nuxt/types"
+    ], 
     "paths": {
       "@/*": [
         "/*"
@@ -32,6 +35,7 @@
     "**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "framevuerk-config.js"
   ]
 }
