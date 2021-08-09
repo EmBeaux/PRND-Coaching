@@ -3,7 +3,7 @@
     <div class="fv-margin-bottom fv-hidden-xs fv-hidden-sm" />
     <div class="content__header fv-margin-bottom fv-padding">
       <h1 class="fv-margin-bottom fv-text-center">
-        Richard Bowler
+        Testimonials
       </h1>
       <p>
         Hello World
