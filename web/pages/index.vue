@@ -108,10 +108,6 @@ export default {
       }
     }
   },
-  async mounted() {
-    const foo = await Api().get('posts')
-    console.log(foo);
-  },
   methods: {
     toggleSidebar () {
       this.sidebar = !this.sidebar
