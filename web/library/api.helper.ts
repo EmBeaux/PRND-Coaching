@@ -11,6 +11,6 @@ export const apiCall = async (method: Methods, record: String, id?: String) => {
     if (id) {
         url += `/${id}`
     }
-debugger;
+
     return await axios.create({ baseURL: process.env.API_URL}).request({ url, method })
 }
