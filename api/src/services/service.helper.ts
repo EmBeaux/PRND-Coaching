@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Schema, Model } from  'mongoose';
+import { Model } from  'mongoose';
 
 export default (model: Model<any>, record: String) => {
     return {
