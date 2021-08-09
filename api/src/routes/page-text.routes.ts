@@ -1,10 +1,10 @@
 import { Express } from 'express';
-import userServices from "../services/user.service"
+import pageTextService from "../services/page-text.service"
 import routeHelper from "./routes.helper"
 
 
 export default (app: Express) => {
-    const routes = routeHelper(app, "users", userServices);
+    const routes = routeHelper(app, "pageText", pageTextService);
     
     return { ...routes }
 }
