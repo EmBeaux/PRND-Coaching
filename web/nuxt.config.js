@@ -21,6 +21,10 @@ export default {
     ]
   },
 
+  env: {
+    baseUrl: process.env.API_URL || 'http://localhost:3001'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'framevuerk/dist/framevuerk.css'
@@ -38,6 +42,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
