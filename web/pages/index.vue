@@ -2,9 +2,9 @@
   <div class="content fv-padding">
     <div class="fv-margin-bottom fv-hidden-xs fv-hidden-sm" />
     <div class="content__header fv-margin-bottom fv-padding">
-      <div class="fv-padding fv-margin-bottom fv-text-center">
-        Hello World
-      </div>
+      <h1 class="fv-margin-bottom fv-text-center">
+        Richard Bowler
+      </h1>
       <p>
         Hello World
       </p>
@@ -19,13 +19,10 @@
 </template>
 
 <script>
-import FramevuerkLogo from '~/components/FramevuerkLogo.vue'
 import Api from '~/routes/Api.ts';
 
 export default {
-  components: {
-    FramevuerkLogo
-  },
+  components: {},
   data () {
     return {
       slider: 'One',
@@ -45,8 +42,14 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 .content {
   margin: 0 auto;
   max-width: 80%;
+}
+
+h1{
+  font-family: 'Noto Serif';
+  font-size: 40px;
 }
 </style>

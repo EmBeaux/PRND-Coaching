@@ -1,33 +1,17 @@
 <template>
   <div>
-    <div class="header">
-      <NuxtLink to="/" class="header-item">
-        Home
-      </NuxtLink>
-      <NuxtLink to="/" class="header-item">
-        About Me
-      </NuxtLink>
-      <NuxtLink to="/" class="header-item">
-       Testimonials
-      </NuxtLink>
-      <NuxtLink to="/" class="header-item">
-        Coaching
-      </NuxtLink>
-      <NuxtLink to="/" class="header-item">
-        Blog
-      </NuxtLink>
-    </div>
-    <hr class="divider" />
+    <HeaderNav />
     <Nuxt />
   </div>
 </template>
-<script>
-export default {
-  data() {
-    return {}
-  },
-  methods: {}
-}
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+import HeaderNav from "../components/header-nav.component.vue";
+
+@Component({
+  components: { HeaderNav }
+})
+export default class Default extends Vue {}
 </script>
 
 <style>
@@ -50,6 +34,10 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  background: #f7f7f7
+} 
+
 .header {
   display: flex;
   justify-content: space-around;
@@ -60,8 +48,15 @@ html {
 }
 
 .header-item {
-  padding: 5px 15px;
+  padding: 10px 15px;
   font-size: 12px;
+  border-radius: 5px;
+  font-family: "Sans Sarif"
+}
+
+.header-item:hover {
+  color: #b7523f;
+  text-decoration: underline;
 }
 
 .divider {
