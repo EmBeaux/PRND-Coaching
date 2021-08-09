@@ -1,6 +1,34 @@
 <template>
-  <Nuxt />
+  <div>
+    <div class="header">
+      <NuxtLink to="/" class="header-item">
+        Home
+      </NuxtLink>
+      <NuxtLink to="/" class="header-item">
+        About Me
+      </NuxtLink>
+      <NuxtLink to="/" class="header-item">
+       Testimonials
+      </NuxtLink>
+      <NuxtLink to="/" class="header-item">
+        Coaching
+      </NuxtLink>
+      <NuxtLink to="/" class="header-item">
+        Blog
+      </NuxtLink>
+    </div>
+    <hr class="divider" />
+    <Nuxt />
+  </div>
 </template>
+<script>
+export default {
+  data() {
+    return {}
+  },
+  methods: {}
+}
+</script>
 
 <style>
 html {
@@ -22,23 +50,22 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+.header {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  padding-top: 25px;
+  margin: 0 auto;
+  max-width: 70%;
 }
 
-html,
-body,
-#__nuxt,
-#__layout {
-  min-height: 100%;
-  height: 100%;
-  position: initial;
+.header-item {
+  padding: 5px 15px;
+  font-size: 12px;
 }
 
-body .material-icons {
-  vertical-align: middle;
+.divider {
+  margin: 0 auto;
+  max-width: 80%;
 }
 </style>
