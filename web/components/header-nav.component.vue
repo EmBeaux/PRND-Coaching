@@ -4,16 +4,16 @@
         <NuxtLink to="/" class="header-item">
             Home
         </NuxtLink>
-        <NuxtLink to="/" class="header-item">
+        <NuxtLink to="/about-me" class="header-item">
             About Me
         </NuxtLink>
-        <NuxtLink to="/" class="header-item">
+        <NuxtLink to="/testimonials" class="header-item">
             Testimonials
         </NuxtLink>
-        <NuxtLink to="/" class="header-item">
+        <NuxtLink to="/coaching" class="header-item">
             Coaching
         </NuxtLink>
-        <NuxtLink to="/" class="header-item">
+        <NuxtLink to="/blog" class="header-item">
             Blog
         </NuxtLink>
         </div>
