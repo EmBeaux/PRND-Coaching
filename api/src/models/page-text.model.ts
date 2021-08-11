@@ -3,10 +3,7 @@ const Schema = mongoose.Schema;
 
 const PageTextSchema = new Schema({
     page: String,
-    content: {
-        html: String,
-        styles: Object
-    }
+    markdown: String
 });
 
 const PageText = mongoose.model("PageText", PageTextSchema);

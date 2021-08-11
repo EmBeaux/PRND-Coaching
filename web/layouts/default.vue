@@ -16,15 +16,6 @@ export default class Default extends Vue {}
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
   font-size: 15px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -35,32 +26,7 @@ html {
 }
 
 body {
-  background: #f7f7f7
+  background: #f7f7f7;
+  height: 1500px;
 } 
-
-.header {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  padding-top: 25px;
-  margin: 0 auto;
-  max-width: 70%;
-}
-
-.header-item {
-  padding: 10px 15px;
-  font-size: 12px;
-  border-radius: 5px;
-  font-family: "Sans Sarif"
-}
-
-.header-item:hover {
-  color: #b7523f;
-  text-decoration: underline;
-}
-
-.divider {
-  margin: 0 auto;
-  max-width: 80%;
-}
 </style>
