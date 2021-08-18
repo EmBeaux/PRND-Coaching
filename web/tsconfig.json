@@ -7,7 +7,6 @@
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -32,8 +31,13 @@
     ]
   },
   "include": [
-    "**/*"
+    "**/*",
+    "/**/*"
   ],
+  "file": [
+    "./node_modules/vue-router/types/vue.d.ts",
+    "./plugins/VueMq.d.ts"
+],
   "exclude": [
     "node_modules",
     "framevuerk-config.js"
