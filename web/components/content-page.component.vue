@@ -15,7 +15,7 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pretium mattis ligula eu feugiat. Duis quis sem ac justo fermentum congue in sed enim. Phasellus id felis eget quam accumsan porta a quis leo. Nam sed lorem et mi vehicula rutrum ac eget quam. Suspendisse varius consequat felis ut porttitor. Mauris eget risus hendrerit nulla faucibus efficitur nec ac nibh. Sed in ullamcorper dui. Curabitur cursus mauris a ex la
             </div>
             <div class="">
-                <img width="350" src="/final-02.png" />
+                <img class="content-image" src="/final-02.png" />
             </div>
         </div>
     </div>
@@ -40,8 +40,6 @@ export default class ContentPage extends Vue {
                 this.$data.pageText = response.data.pageTexts[0].markdown
             }
         })
-
-        const fo = this.$mq;
     }
     pageMarkdown() {
         return marked(this.$data.pageText);
@@ -53,6 +51,7 @@ export default class ContentPage extends Vue {
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 .content {
     margin: 2.5em auto;
+    display: flex;
 }
 .title-text {
     font-family: 'Noto Serif';
@@ -108,5 +107,51 @@ export default class ContentPage extends Vue {
 
 .image-button:hover {
     background: #B90101 !important;
+}
+
+.content-image {
+    width: 350px
+}
+@media only screen and (min-width: 900px) and (max-width: 1250px) {
+    .color-text-container {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .information-color-text {
+        font-size: 20px;
+        padding-top: 10px;
+        padding: 0;
+    }
+
+    .content-image {
+        margin-top: -90px;
+        margin-bottom: -80px;
+    }
+}
+
+@media (max-width: 900px) {
+    .image-text {
+        font-size: 5vh;
+        width: 60%;
+        padding: 0;
+        padding-top: 10px;
+    }
+
+    .content-image {
+        width: 230px;
+        margin-top: 10px;
+    }
+
+    .color-text-container {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .information-color-text {
+        padding: 0;
+        padding-top: 10px;
+        font-size: 18px;
+    }
 }
 </style>

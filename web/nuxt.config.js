@@ -34,6 +34,7 @@ export default {
   plugins: [
     '@/plugins/framevuerk',
     '@/plugins/VueMq',
+    { src: '@plugins/vue-burger-menu', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

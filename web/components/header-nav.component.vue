@@ -4,7 +4,7 @@
             <div class="header-logo">
                 <img width="125" src="/header-logo.png" />
             </div>
-            <div class=header-nav>
+            <div v-if="$mq === 'lg'" class="header-nav">
                 <NuxtLink to="/" class="header-nav-item">
                     Home
                 </NuxtLink>
@@ -21,7 +21,23 @@
                     Blog
                 </NuxtLink>
             </div>
-            
+            <Slide right closeOnNavigation v-else>
+                <NuxtLink to="/">
+                    Home
+                </NuxtLink>
+                <NuxtLink to="/about-me">
+                    About Me
+                </NuxtLink>
+                <NuxtLink to="/testimonials">
+                    Testimonials
+                </NuxtLink>
+                <NuxtLink to="/coaching">
+                    Coaching
+                </NuxtLink>
+                <NuxtLink to="/blog">
+                    Blog
+                </NuxtLink>
+            </Slide>
         </div>
         <hr class="divider" />
     </div>
