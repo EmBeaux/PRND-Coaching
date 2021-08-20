@@ -62,6 +62,7 @@ export default class HeaderNav extends Vue {}
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
+    width: 50%;
 }
 
 .header-nav {
@@ -92,5 +93,14 @@ export default class HeaderNav extends Vue {}
 
 .divider {
     margin: 0;
+}
+
+@media only screen and (max-width: 900px) {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        width: 100%;
+    }
 }
 </style>
