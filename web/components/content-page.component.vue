@@ -18,17 +18,50 @@
                 <img class="content-image" src="/final-02.png" />
             </div>
         </div>
-        <div class="calendar-grid">
-            <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
-            <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
+        <div class="modal-grid">
+            <!-- <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
+            <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly> -->
+            <div class="grid-item">
+                Grid Item with a button
+                <button
+                    type="button"
+                    class="btn"
+                    v-on:click="isModalVisible = true"
+                >
+                    Open Modal!
+                </button>
+            </div>
+            <div class="grid-item">
+                Grid Item with a button
+                <button
+                    type="button"
+                    class="btn"
+                    v-on:click="isModalVisible = true"
+                >
+                    Open Modal!
+                </button>
+            </div>
+            <div class="grid-item">
+                Grid Item with a button
+                <button
+                    type="button"
+                    class="btn"
+                    v-on:click="isModalVisible = true"
+                >
+                    Open Modal!
+                </button>
+            </div>
+            <div class="grid-item">
+                Grid Item with a button
+                <button
+                    type="button"
+                    class="btn"
+                    v-on:click="isModalVisible = true"
+                >
+                    Open Modal!
+                </button>
+            </div>
         </div>
-        <button
-            type="button"
-            class="btn"
-            v-on:click="isModalVisible = true"
-        >
-            Open Modal!
-        </button>
 
         <Modal
             v-show="isModalVisible"
@@ -60,9 +93,6 @@ export default class ContentPage extends Vue {
                 this.$data.pageText = response.data.pageTexts[0].markdown
             }
         })
-    }
-    pageMarkdown() {
-        return marked(this.$data.pageText);
     }
     closeModal() {
         this.$data.isModalVisible = false;
@@ -136,21 +166,31 @@ export default class ContentPage extends Vue {
     width: 350px
 }
 
-.calendar-grid {
+.modal-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin-top: 4em;
 }
 
-.grid-item { width: 600px; }
-@media only screen and (min-width: 900px) and (max-width: 1250px) {
-    .calendar-grid {
+.grid-item {
+border: 1px solid grey;
+    border-radius: 5px;
+    height: 20em;
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 5%;
+}
+@media only screen and (min-width: 768px) and (max-width: 1250px) {
+    .modal-grid {
         margin-top: 0em;
     }
 
     .grid-item {
         margin-top: 4em;
+        padding: 10%;
     }
 
     .color-text-container {
@@ -171,13 +211,14 @@ export default class ContentPage extends Vue {
     }
 }
 
-@media (max-width: 900px) {
-    .calendar-grid {
+@media (max-width: 767px) {
+    .modal-grid {
         margin-top: 0em;
     }
 
     .grid-item {
         margin-top: 4em;
+        padding: 20%;
     }
 
     .image-text {
