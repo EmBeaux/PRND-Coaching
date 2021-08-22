@@ -34,6 +34,7 @@ export default {
   plugins: [
     '@/plugins/framevuerk',
     '@/plugins/VueMq',
+    { src: '@/plugins/vue-calendly', ssr: false },
     { src: '@plugins/vue-burger-menu', ssr: false }
   ],
 

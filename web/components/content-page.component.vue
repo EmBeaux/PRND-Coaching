@@ -18,6 +18,22 @@
                 <img class="content-image" src="/final-02.png" />
             </div>
         </div>
+        <div class="calendar-grid">
+            <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
+            <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
+        </div>
+        <button
+            type="button"
+            class="btn"
+            v-on:click="isModalVisible = true"
+        >
+            Open Modal!
+        </button>
+
+        <Modal
+            v-show="isModalVisible"
+            @close="closeModal"
+        />
     </div>
   </div>
 </template>
@@ -26,10 +42,14 @@
 import marked from "marked";
 import { Vue, Component } from "vue-property-decorator";
 import { apiCall } from '../library/api.helper';
+import Modal from './modal.component.vue'
 
-@Component
+@Component({
+    components: { Modal }
+})
 export default class ContentPage extends Vue {
     pageText: string = "";
+    isModalVisible: boolean = false;
     async mounted() {
         await apiCall(
             "get",
@@ -43,6 +63,9 @@ export default class ContentPage extends Vue {
     }
     pageMarkdown() {
         return marked(this.$data.pageText);
+    }
+    closeModal() {
+        this.$data.isModalVisible = false;
     }
 }
 </script>
@@ -112,7 +135,24 @@ export default class ContentPage extends Vue {
 .content-image {
     width: 350px
 }
+
+.calendar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 4em;
+}
+
+.grid-item { width: 600px; }
 @media only screen and (min-width: 900px) and (max-width: 1250px) {
+    .calendar-grid {
+        margin-top: 0em;
+    }
+
+    .grid-item {
+        margin-top: 4em;
+    }
+
     .color-text-container {
         flex-direction: column;
         height: fit-content;
@@ -122,6 +162,7 @@ export default class ContentPage extends Vue {
         font-size: 20px;
         padding-top: 10px;
         padding: 0;
+        margin-top: 4em;
     }
 
     .content-image {
@@ -131,6 +172,14 @@ export default class ContentPage extends Vue {
 }
 
 @media (max-width: 900px) {
+    .calendar-grid {
+        margin-top: 0em;
+    }
+
+    .grid-item {
+        margin-top: 4em;
+    }
+
     .image-text {
         font-size: 5vh;
         width: 60%;
