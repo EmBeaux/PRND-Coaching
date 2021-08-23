@@ -19,55 +19,67 @@
             </div>
         </div>
         <div class="modal-grid">
-            <!-- <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
-            <vue-calendly class="grid-item" url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly> -->
             <div class="grid-item">
-                Grid Item with a button
+                <h3 class="grid-item-title"> Personal Growth Consult </h3>
+                <p class="grid-item-description">Are you interested in having a consult? Are you interested in being better?</p>
                 <button
                     type="button"
-                    class="btn"
+                    class="fv-button fv-secondary image-button"
                     v-on:click="isModalVisible = true"
                 >
-                    Open Modal!
+                    Schedule A Consult
+                </button>
+                <mdicon name="react" /> 
+            </div>
+            <div class="grid-item">
+                <h3 class="grid-item-title">
+                    Carreer Growth Consult
+                </h3>
+                <p class="grid-item-description">Are you interested in growing as a person?</p>
+                <button
+                    type="button"
+                    class="fv-button fv-secondary image-button"
+                    v-on:click="isModalVisible = true"
+                >
+                    Schedule A Consult
                 </button>
             </div>
             <div class="grid-item">
-                Grid Item with a button
+                <h3 class="grid-item-title"> Group Learning Seminar </h3>
+                <p class="grid-item-description">Join a group of up to 12 people to discuss and learn new topics.</p>
                 <button
                     type="button"
-                    class="btn"
+                    class="fv-button fv-secondary image-button"
                     v-on:click="isModalVisible = true"
                 >
-                    Open Modal!
+                   Join a Seminar
                 </button>
             </div>
             <div class="grid-item">
-                Grid Item with a button
+                <h3 class="grid-item-title"> Employee 360 Evaluation </h3>
+                <p class="grid-item-description"> Evaluate your employees with a 260 Survery Sparrow evaluation. </p>
                 <button
                     type="button"
-                    class="btn"
+                    class="fv-button fv-secondary image-button"
                     v-on:click="isModalVisible = true"
                 >
-                    Open Modal!
-                </button>
-            </div>
-            <div class="grid-item">
-                Grid Item with a button
-                <button
-                    type="button"
-                    class="btn"
-                    v-on:click="isModalVisible = true"
-                >
-                    Open Modal!
+                    Schedule A Consult
                 </button>
             </div>
         </div>
-
-        <Modal
-            v-show="isModalVisible"
-            @close="closeModal"
-        />
     </div>
+    <Modal
+        v-show="isModalVisible"
+        @close="closeModal"
+    >
+        <template v-slot:header>
+            Schedule a consult
+        </template>
+
+        <template v-slot:body>
+            <vue-calendly url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
+        </template>
+    </Modal>
   </div>
 </template>
 
@@ -174,15 +186,26 @@ export default class ContentPage extends Vue {
 }
 
 .grid-item {
-border: 1px solid grey;
+    border: 1px solid grey;
     border-radius: 5px;
     height: 20em;
     width: 20em;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    padding: 5%;
+    padding: 4%;
+    text-align: center;
 }
+
+.grid-item-title {
+    margin-bottom: 1em;
+}
+
+.grid-item-description {
+    margin-bottom: 1em;
+    text-align: left;
+}
+
 @media only screen and (min-width: 768px) and (max-width: 1250px) {
     .modal-grid {
         margin-top: 0em;

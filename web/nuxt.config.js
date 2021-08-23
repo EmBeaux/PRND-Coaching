@@ -34,6 +34,7 @@ export default {
   plugins: [
     '@/plugins/framevuerk',
     '@/plugins/VueMq',
+    '@/plugins/vue-mdi',
     { src: '@/plugins/vue-calendly', ssr: false },
     { src: '@plugins/vue-burger-menu', ssr: false }
   ],
@@ -54,5 +55,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ['mdi-vue']
   }
 }

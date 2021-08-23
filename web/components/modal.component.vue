@@ -19,19 +19,6 @@
           This is the default body!
         </slot>
        </section>
-
-      <footer class="modal-footer">
-        <slot name="footer">
-          This is the default footer!
-        </slot>
-        <button
-          type="button"
-          class="btn-green"
-          @click="close"
-        >
-          Close Modal
-        </button>
-      </footer>
     </div>
   </div>
 </template>
@@ -66,6 +53,7 @@ export default class Modal extends Vue {
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    width: 35%;
   }
 
   .modal-header,
@@ -111,4 +99,10 @@ export default class Modal extends Vue {
     border: 1px solid #4AAE9B;
     border-radius: 2px;
   }
+
+@media only screen and (max-width: 1250px) {
+    .modal {
+        width: 98%;
+    }
+}
 </style>
