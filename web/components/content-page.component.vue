@@ -20,6 +20,7 @@
         </div>
         <div class="modal-grid">
             <div class="grid-item">
+                <mdicon name="shield-account" /> 
                 <h3 class="grid-item-title"> Personal Growth Consult </h3>
                 <p class="grid-item-description">Are you interested in having a consult? Are you interested in being better?</p>
                 <button
@@ -29,9 +30,9 @@
                 >
                     Schedule A Consult
                 </button>
-                <mdicon name="react" /> 
             </div>
             <div class="grid-item">
+                <mdicon name="briefcase-outline" /> 
                 <h3 class="grid-item-title">
                     Carreer Growth Consult
                 </h3>
@@ -45,6 +46,7 @@
                 </button>
             </div>
             <div class="grid-item">
+                <mdicon name="account-group-outline" /> 
                 <h3 class="grid-item-title"> Group Learning Seminar </h3>
                 <p class="grid-item-description">Join a group of up to 12 people to discuss and learn new topics.</p>
                 <button
@@ -56,14 +58,15 @@
                 </button>
             </div>
             <div class="grid-item">
+                <mdicon name="autorenew" /> 
                 <h3 class="grid-item-title"> Employee 360 Evaluation </h3>
-                <p class="grid-item-description"> Evaluate your employees with a 260 Survery Sparrow evaluation. </p>
+                <p class="grid-item-description"> Evaluate your employees with a 360 Survery Sparrow evaluation. </p>
                 <button
                     type="button"
                     class="fv-button fv-secondary image-button"
                     v-on:click="isModalVisible = true"
                 >
-                    Schedule A Consult
+                    Schedule a 360 Evaluation
                 </button>
             </div>
         </div>
@@ -117,6 +120,7 @@ export default class ContentPage extends Vue {
 .content {
     margin: 2.5em auto;
     display: flex;
+    width: 75%;
 }
 .title-text {
     font-family: 'Noto Serif';
@@ -139,9 +143,11 @@ export default class ContentPage extends Vue {
     width: 100%;
     height: 25vh;
     align-items: center;
-    background-color: #6A957F;
+    background-color: #987575;
     display: flex;
     justify-content: flex-start;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .image-text {
@@ -157,7 +163,7 @@ export default class ContentPage extends Vue {
     width: 75%;
     color: white;
     font-weight: bolder;
-    font-size: 24px;
+    font-size: 22px;
     padding: 70px;
     word-wrap: break-word;
 }
@@ -186,7 +192,7 @@ export default class ContentPage extends Vue {
 }
 
 .grid-item {
-    border: 1px solid grey;
+    border: 1px solid rgba(128,128,128,.3);
     border-radius: 5px;
     height: 20em;
     width: 20em;
@@ -195,6 +201,7 @@ export default class ContentPage extends Vue {
     justify-content: space-evenly;
     padding: 4%;
     text-align: center;
+    align-items: center;
 }
 
 .grid-item-title {
@@ -206,14 +213,30 @@ export default class ContentPage extends Vue {
     text-align: left;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1250px) {
+.mdi {
+    color: #B90101;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 2em;
+}
+
+.mdi > svg {
+    vertical-align: middle;
+    height: inherit;
+    width: inherit;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1515px) {
+    .content{
+        width: 100%
+    }
+
     .modal-grid {
         margin-top: 0em;
     }
 
     .grid-item {
         margin-top: 4em;
-        padding: 10%;
     }
 
     .color-text-container {
@@ -226,6 +249,7 @@ export default class ContentPage extends Vue {
         padding-top: 10px;
         padding: 0;
         margin-top: 4em;
+        width: 95%;
     }
 
     .content-image {
@@ -235,13 +259,17 @@ export default class ContentPage extends Vue {
 }
 
 @media (max-width: 767px) {
+    .content{
+        width: 100%
+    }
+
     .modal-grid {
         margin-top: 0em;
     }
 
     .grid-item {
         margin-top: 4em;
-        padding: 20%;
+        padding: 16%;
     }
 
     .image-text {
@@ -254,6 +282,9 @@ export default class ContentPage extends Vue {
     .content-image {
         width: 230px;
         margin-top: 10px;
+        margin-top: -3em;
+        margin-bottom: -3em;
+        margin-left: -1em;
     }
 
     .color-text-container {
@@ -265,6 +296,7 @@ export default class ContentPage extends Vue {
         padding: 0;
         padding-top: 10px;
         font-size: 18px;
+        width: 95%;
     }
 }
 </style>
