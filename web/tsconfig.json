@@ -1,4 +1,8 @@
 {
+  "include": [
+    "**/*.ts",
+    "**/*.vue"
+  ],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -12,17 +16,17 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "/*"
+      ]
+    },
     "types": [
       "@types/node",
       "@nuxt/vue-app",
       "webpack-env",
       "@nuxt/types"
     ], 
-    "paths": {
-      "@/*": [
-        "/*"
-      ]
-    },
     "lib": [
       "esnext",
       "dom",
@@ -30,10 +34,6 @@
       "scripthost"
     ]
   },
-  "include": [
-    "**/*",
-    "/**/*"
-  ],
   "file": [
     "./node_modules/vue-router/types/vue.d.ts",
     "./plugins/VueMq.d.ts"

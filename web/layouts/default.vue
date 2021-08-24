@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  background: #f7f7f7;
+  background: #FAF9F6;
   height: 1500px;
 } 
 </style>

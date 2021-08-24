@@ -29,7 +29,7 @@ import { Vue, Component } from "vue-property-decorator";
 @Component({})
 export default class Modal extends Vue {
       close() {
-        this.$emit('close');
+        this.$emit('close', '');
       }
 }
 </script>
@@ -65,7 +65,8 @@ export default class Modal extends Vue {
   .modal-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
+    color: #B90101;
+    font-weight: bold;
     justify-content: space-between;
   }
 
@@ -89,14 +90,14 @@ export default class Modal extends Vue {
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
-    color: #4AAE9B;
+    color: #B90101;
     background: transparent;
   }
 
   .btn-green {
     color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
+    background: #B90101;
+    border: 1px solid #B90101;
     border-radius: 2px;
   }
 

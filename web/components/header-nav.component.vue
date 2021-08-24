@@ -21,7 +21,7 @@
                     Blog
                 </NuxtLink>
             </div>
-            <Slide right closeOnNavigation v-else>
+            <Slide right closeOnNavigation class="burger-menu" v-else>
                 <NuxtLink to="/">
                     Home
                 </NuxtLink>
@@ -49,7 +49,7 @@ import { Vue, Component } from "vue-property-decorator";
 export default class HeaderNav extends Vue {}
 </script>
 
-<style scoped>
+<style>
 .sticky {
     background: #f7f7f7;
     position: fixed;
@@ -93,6 +93,21 @@ export default class HeaderNav extends Vue {}
 
 .divider {
     margin: 0;
+}
+
+.bm-menu {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background: #FAF9F6;
+    border-left: 1px solid black;
+}
+
+.bm-item-list {
+    color: black;
+}
+
+.bm-cross {
+    background: black;
 }
 
 @media only screen and (max-width: 900px) {

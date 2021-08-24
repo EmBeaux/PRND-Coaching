@@ -26,7 +26,7 @@
                 <button
                     type="button"
                     class="fv-button fv-secondary image-button"
-                    v-on:click="isModalVisible = true"
+                    @click="setActiveModal('consult')"
                 >
                     Schedule A Consult
                 </button>
@@ -40,7 +40,7 @@
                 <button
                     type="button"
                     class="fv-button fv-secondary image-button"
-                    v-on:click="isModalVisible = true"
+                    @click="setActiveModal('consult')"
                 >
                     Schedule A Consult
                 </button>
@@ -52,7 +52,7 @@
                 <button
                     type="button"
                     class="fv-button fv-secondary image-button"
-                    v-on:click="isModalVisible = true"
+                    @click="setActiveModal('seminar')"
                 >
                    Join a Seminar
                 </button>
@@ -64,7 +64,7 @@
                 <button
                     type="button"
                     class="fv-button fv-secondary image-button"
-                    v-on:click="isModalVisible = true"
+                    @click="setActiveModal('360')"
                 >
                     Schedule a 360 Evaluation
                 </button>
@@ -72,15 +72,15 @@
         </div>
     </div>
     <Modal
-        v-show="isModalVisible"
-        @close="closeModal"
+        v-if="calendlyURL"
+        v-on:close="setActiveModal('')"
     >
-        <template v-slot:header>
+        <template #header>
             Schedule a consult
         </template>
 
-        <template v-slot:body>
-            <vue-calendly url="https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins" :height="600"></vue-calendly>
+        <template #body>
+            <vue-calendly :url="calendlyURL" :height="600"></vue-calendly>
         </template>
     </Modal>
   </div>
@@ -91,26 +91,45 @@ import marked from "marked";
 import { Vue, Component } from "vue-property-decorator";
 import { apiCall } from '../library/api.helper';
 import Modal from './modal.component.vue'
+type ActiveModal = 'consult' | '360' | 'seminar' | '';
 
 @Component({
     components: { Modal }
 })
 export default class ContentPage extends Vue {
     pageText: string = "";
-    isModalVisible: boolean = false;
+    activeModal: ActiveModal = "";
+    setActiveModal(variable: ActiveModal) {
+        this.activeModal = variable;
+    }
+    public get calendlyURL(): string {
+        let activeURL: string = "";
+        switch(this.activeModal) {
+            case 'seminar':
+                activeURL = 'https://calendly.com/prndcoaching/seminar-session-no-charge-1-hour'
+                break;
+            case 'consult':
+                activeURL = 'https://calendly.com/prndcoaching/initial-consult-no-charge-30-minutes'
+                break;
+            case '360':
+                activeURL = 'https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins'
+                break;
+            default:
+                break;
+        }
+        return activeURL;
+    }
     async mounted() {
+        this.activeModal = '';
         await apiCall(
             "get",
             "pageText",
             { params: { page: this.$route.name }
         }).then(response => {
             if (response.data && response.data.pageTexts) {
-                this.$data.pageText = response.data.pageTexts[0].markdown
+                this.pageText = response.data.pageTexts[0].markdown
             }
         })
-    }
-    closeModal() {
-        this.$data.isModalVisible = false;
     }
 }
 </script>
@@ -152,11 +171,12 @@ export default class ContentPage extends Vue {
 
 .image-text {
     width: 30%;
-    color: white;
+    color: #FAF9F6;
     font-weight: bolder;
     font-size: 45px;
     text-shadow: 4px 6px 3px rgb(0 0 0 / 30%);
     word-wrap: break-word;
+    margin-top: 1em;
 }
 
 .information-color-text {
