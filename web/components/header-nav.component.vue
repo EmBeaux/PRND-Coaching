@@ -98,16 +98,16 @@ export default class HeaderNav extends Vue {}
 .bm-menu {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    background: #FAF9F6;
+    background-color: #FAF9F6 !important;
     border-left: 1px solid black;
 }
 
 .bm-item-list {
-    color: black;
+    color: black !important;
 }
 
 .bm-cross {
-    background: black;
+    background: black !important;
 }
 
 @media only screen and (max-width: 900px) {
