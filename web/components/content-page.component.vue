@@ -1,140 +1,58 @@
 <template>
   <div class="content fv-padding">
-    <!-- <div class="fv-margin-bottom fv-hidden-xs fv-hidden-sm" /> -->
-    <div class="content__header fv-margin-bottom fv-padding">
-        <!-- <h1 class='fv-margin-bottom fv-text-center title-text'>About Me</h1> -->
-        <div class="image-container">
-            <div class="image-text">
-                Want to expand your carrer? Schedule A Consult.
-
-                <a class="fv-button fv-secondary image-button" href="/coaching"> Do Something </a>
-            </div>
-        </div>
-        <div class="color-text-container">
-            <div class="information-color-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pretium mattis ligula eu feugiat. Duis quis sem ac justo fermentum congue in sed enim. Phasellus id felis eget quam accumsan porta a quis leo. Nam sed lorem et mi vehicula rutrum ac eget quam. Suspendisse varius consequat felis ut porttitor. Mauris eget risus hendrerit nulla faucibus efficitur nec ac nibh. Sed in ullamcorper dui. Curabitur cursus mauris a ex la
-            </div>
-            <div class="">
-                <img class="content-image" src="/final-02.png" />
-            </div>
-        </div>
-        <div class="modal-grid">
-            <div class="grid-item">
-                <mdicon name="shield-account" /> 
-                <h3 class="grid-item-title"> Personal Growth Consult </h3>
-                <p class="grid-item-description">Are you interested in having a consult? Are you interested in being better?</p>
-                <button
-                    type="button"
-                    class="fv-button fv-secondary image-button"
-                    @click="setActiveModal('consult')"
-                >
-                    Schedule A Consult
-                </button>
-            </div>
-            <div class="grid-item">
-                <mdicon name="briefcase-outline" /> 
-                <h3 class="grid-item-title">
-                    Carreer Growth Consult
-                </h3>
-                <p class="grid-item-description">Are you interested in growing as a person?</p>
-                <button
-                    type="button"
-                    class="fv-button fv-secondary image-button"
-                    @click="setActiveModal('consult')"
-                >
-                    Schedule A Consult
-                </button>
-            </div>
-            <div class="grid-item">
-                <mdicon name="account-group-outline" /> 
-                <h3 class="grid-item-title"> Group Learning Seminar </h3>
-                <p class="grid-item-description">Join a group of up to 12 people to discuss and learn new topics.</p>
-                <button
-                    type="button"
-                    class="fv-button fv-secondary image-button"
-                    @click="setActiveModal('seminar')"
-                >
-                   Join a Seminar
-                </button>
-            </div>
-            <div class="grid-item">
-                <mdicon name="autorenew" /> 
-                <h3 class="grid-item-title"> Employee 360 Evaluation </h3>
-                <p class="grid-item-description"> Evaluate your employees with a 360 Survery Sparrow evaluation. </p>
-                <button
-                    type="button"
-                    class="fv-button fv-secondary image-button"
-                    @click="setActiveModal('360')"
-                >
-                    Schedule a 360 Evaluation
-                </button>
-            </div>
-        </div>
+    <div v-if="pageText.page" class="content__header fv-margin-bottom fv-padding">
+        <div v-html="pageTextMain" />
+        <ContentPageGrid :grid="pageText.content.grid" />
     </div>
-    <Modal
-        v-if="calendlyURL"
-        v-on:close="setActiveModal('')"
-    >
-        <template #header>
-            Schedule a consult
-        </template>
-
-        <template #body>
-            <vue-calendly :url="calendlyURL" :height="600"></vue-calendly>
-        </template>
-    </Modal>
   </div>
 </template>
 
 <script lang="ts">
-import marked from "marked";
 import { Vue, Component } from "vue-property-decorator";
 import { apiCall } from '../library/api.helper';
-import Modal from './modal.component.vue'
-type ActiveModal = 'consult' | '360' | 'seminar' | '';
+import ContentPageGrid from './content-page-grid.component.vue'
 
+interface GridItem {
+    icon: string,
+    title: string,
+    description: string,
+    buttonText: string,
+    modalType: string
+}
+interface PageText {
+    page: string,
+    content: {
+        main: string,
+        grid: GridItem[]
+    }
+}
 @Component({
-    components: { Modal }
+    components: { ContentPageGrid }
 })
 export default class ContentPage extends Vue {
-    pageText: string = "";
-    activeModal: ActiveModal = "";
-    setActiveModal(variable: ActiveModal) {
-        this.activeModal = variable;
+    pageTextResponse: PageText = { page: "", content: {main: "", grid: []}};
+    public set pageText(value: PageText) {
+        this.pageTextResponse = value;
     }
-    public get calendlyURL(): string {
-        let activeURL: string = "";
-        switch(this.activeModal) {
-            case 'seminar':
-                activeURL = 'https://calendly.com/prndcoaching/seminar-session-no-charge-1-hour'
-                break;
-            case 'consult':
-                activeURL = 'https://calendly.com/prndcoaching/initial-consult-no-charge-30-minutes'
-                break;
-            case '360':
-                activeURL = 'https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins'
-                break;
-            default:
-                break;
-        }
-        return activeURL;
+    public get pageText(): PageText {
+        return this.pageTextResponse;
+    }
+    public get pageTextMain(): string {
+        return this.pageText.content.main.replace(String.fromCharCode(92), "")
     }
     async mounted() {
-        this.activeModal = '';
-        await apiCall(
+        apiCall<{ pageTexts: PageText[] }>(
             "get",
             "pageText",
             { params: { page: this.$route.name }
         }).then(response => {
-            if (response.data && response.data.pageTexts) {
-                this.pageText = response.data.pageTexts[0].markdown
-            }
+            this.pageText = response.data.pageTexts[0]
         })
     }
 }
 </script>
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 .content {
     margin: 2.5em auto;
@@ -190,7 +108,7 @@ export default class ContentPage extends Vue {
 
 .image-button {
     font-size: 14px;
-    background: #B90101;
+    background: #B90101 !important;
     border: none !important;
     box-shadow: none;
     text-shadow: none;
@@ -204,59 +122,9 @@ export default class ContentPage extends Vue {
     width: 350px
 }
 
-.modal-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 4em;
-}
-
-.grid-item {
-    border: 1px solid rgba(128,128,128,.3);
-    border-radius: 5px;
-    height: 20em;
-    width: 20em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 4%;
-    text-align: center;
-    align-items: center;
-}
-
-.grid-item-title {
-    margin-bottom: 1em;
-}
-
-.grid-item-description {
-    margin-bottom: 1em;
-    text-align: left;
-}
-
-.mdi {
-    color: #B90101;
-    height: 40px;
-    width: 40px;
-    margin-bottom: 2em;
-}
-
-.mdi > svg {
-    vertical-align: middle;
-    height: inherit;
-    width: inherit;
-}
-
 @media only screen and (min-width: 768px) and (max-width: 1515px) {
     .content{
         width: 100%
-    }
-
-    .modal-grid {
-        margin-top: 0em;
-    }
-
-    .grid-item {
-        margin-top: 4em;
     }
 
     .color-text-container {
@@ -281,15 +149,6 @@ export default class ContentPage extends Vue {
 @media (max-width: 767px) {
     .content{
         width: 100%
-    }
-
-    .modal-grid {
-        margin-top: 0em;
-    }
-
-    .grid-item {
-        margin-top: 4em;
-        padding: 16%;
     }
 
     .image-text {

@@ -8,7 +8,8 @@ type Methods =
 interface GenericObject {
     [key: string]: any
 }
-export const apiCall = async (method: Methods, record: String, query: GenericObject) => {
+type ApiCallGenericReturn = <T>(method: Methods, record: String, query: GenericObject) => Promise<{ data: T  }>;
+export const apiCall: ApiCallGenericReturn = async (method: Methods, record: String, query: GenericObject) => {
     let url = `/${record}`
     if (query.id) {
         url += `/${query.id}`
