@@ -34,16 +34,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import Modal from './modal.component.vue'
-
-type ActiveModal = 'consult' | '360' | 'seminar' | '';
-interface GridItem {
-    icon?: string,
-    title: string,
-    description: string,
-    buttonText?: string,
-    modalType?: string,
-    image?: string
-}
+import { GridItem, ActiveModal } from './types/content-page.types';
 
 @Component({
     components: { Modal }

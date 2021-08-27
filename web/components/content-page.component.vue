@@ -11,26 +11,20 @@
 import { Vue, Component } from "vue-property-decorator";
 import { apiCall } from '../library/api.helper';
 import ContentPageGrid from './content-page-grid.component.vue'
+import { PageText } from './types/content-page.types';
 
-interface GridItem {
-    icon: string,
-    title: string,
-    description: string,
-    buttonText: string,
-    modalType: string
-}
-interface PageText {
-    page: string,
-    content: {
-        main: string,
-        grid: GridItem[]
-    }
-}
 @Component({
     components: { ContentPageGrid }
 })
 export default class ContentPage extends Vue {
-    pageTextResponse: PageText = { page: "", content: {main: "", grid: []}};
+    pageTextResponse: PageText = {
+        page: "",
+        content: {
+            main: "",
+            grid: []
+        }
+    };
+
     public set pageText(value: PageText) {
         this.pageTextResponse = value;
     }
