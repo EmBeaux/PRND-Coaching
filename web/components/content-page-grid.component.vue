@@ -2,16 +2,18 @@
 <div>
     <div class="modal-grid">
         <div v-for="gridItem in grid" :key="gridItem.title" class="grid-item">
-            <mdicon :name="gridItem.icon" /> 
-            <h3 class="grid-item-title">{{ gridItem.title }}</h3>
+            <mdicon v-if="gridItem.icon" :name="gridItem.icon" /> 
+            <h3 class="grid-item-title" :style="{ color: gridItem.image && '#B90101', marginTop: gridItem.image && $mq === 'lg' && '20%' }">{{ gridItem.title }}</h3>
             <p class="grid-item-description"> {{ gridItem.description }} </p>
             <button
+                v-if="gridItem.buttonText"
                 type="button"
                 class="fv-button fv-secondary image-button"
                 @click="setActiveModal(`${gridItem.modalType}`)"
             >
                 {{ gridItem.buttonText }}
             </button>
+            <img class="grid-item-image" v-if="gridItem.image" :src="gridItem.image" />
         </div>
     </div>
     <Modal
@@ -35,11 +37,12 @@ import Modal from './modal.component.vue'
 
 type ActiveModal = 'consult' | '360' | 'seminar' | '';
 interface GridItem {
-    icon: string,
+    icon?: string,
     title: string,
     description: string,
-    buttonText: string,
-    modalType: string
+    buttonText?: string,
+    modalType?: string,
+    image?: string
 }
 
 @Component({
@@ -91,6 +94,8 @@ export default class ContentPageGrid extends Vue {
     padding: 4%;
     text-align: center;
     align-items: center;
+    margin-right: 1em;
+    margin-top: 1em;
 }
 
 .grid-item-title {
@@ -100,6 +105,10 @@ export default class ContentPageGrid extends Vue {
 .grid-item-description {
     margin-bottom: 1em;
     text-align: left;
+}
+
+.grid-item-image {
+    width: 15vh;
 }
 
 .mdi {
@@ -122,6 +131,7 @@ export default class ContentPageGrid extends Vue {
 
     .grid-item {
         margin-top: 4em;
+        margin-right: 1em;
     }
 }
 
@@ -133,6 +143,7 @@ export default class ContentPageGrid extends Vue {
     .grid-item {
         margin-top: 4em;
         padding: 16%;
+        margin-right: 0em
     }
 }
 </style>

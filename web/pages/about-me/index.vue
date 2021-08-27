@@ -1,17 +1,5 @@
 <template>
-  <div class="content fv-padding">
-    <div class="introduction-container">
-      <img class="headshot" src="/business-man-stock.png" />
-      <div class="introduction-text">
-        <div class="introduction-header">
-          Richard Bowler
-        </div>
-        <div class="introduction-body">
-          Tom Henschel’s first memory of teaching was lining up his toys and explaining the world to them. Since then, he has coached leaders and teams around the world in companies large and small. He’s known for helping disruptive executives be better team players and for helping rising stars achieve The Look & Sound of Leadership. His podcast has become a global phenomenon. He donates time to developing women early in their careers. He also serves on the board of a small independent school in Los Angeles that delivers education for democracy in a way that inspires him daily.
-        </div>
-      </div>
-    </div>
-  </div>
+  <ContentPage />
 </template>
 
 <script lang="ts">
@@ -56,6 +44,7 @@ export default class AboutMeIndex extends Vue {}
 
 .introduction-header {
   color: #B90101;
+  font-weight: bold;
   font-size: 35px;
   word-wrap: break-word;
   margin-top: 1em;
@@ -64,11 +53,12 @@ export default class AboutMeIndex extends Vue {}
 @media only screen and (min-width: 768px) and (max-width: 1515px) {
   .introduction-container {
     flex-direction: column;
+    align-items: center;
   }
 
   .introduction-text {
     margin-top: -4em;
-    max-width: 95%;
+    max-width: 100%;
     font-family: 'Noto Serif';
     display: flex;
     flex-direction: column;
@@ -77,17 +67,23 @@ export default class AboutMeIndex extends Vue {}
 }
 
 @media (max-width: 767px) {
+  .headshot {
+    width: 40vh;
+  }
+
   .introduction-container {
     flex-direction: column;
+    align-items: center;
   }
 
   .introduction-text {
     margin-top: -4em;
-    max-width: 95%;
+    max-width: 100%;
     font-family: 'Noto Serif';
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: .5em;
   }
 
   .introduction-body {
@@ -97,6 +93,10 @@ export default class AboutMeIndex extends Vue {}
     line-height: 1.5em;
     font-size: 15px;
     text-align: center;
+    padding: .5%;
+  }
+  .introduction-header {
+    font-size: 30px;
   }
 }
 </style>

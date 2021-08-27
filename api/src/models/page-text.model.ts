@@ -6,11 +6,30 @@ const PageTextSchema = new Schema({
     content: {
         main: String,
         grid: [{ 
-            icon: String,
-            title: String,
-            description: String,
-            buttonText: String,
-            modalType: String
+            icon: {
+                type: String,
+                required: false,
+            },
+            title: {
+                type: String,
+                required: true,
+            },
+            description: {
+                type: String,
+                required: true,
+            },
+            buttonText: {
+                type: String,
+                required: false,
+            },
+            modalType: {
+                type: String,
+                required: false,
+            },
+            image: {
+                type: String,
+                required: false,
+            },
          }]
     }
 });

@@ -81,7 +81,7 @@ export default class AboutMeIndex extends Vue {}
 
 @media only screen and (min-width: 768px) and (max-width: 1515px) {
     .content{
-        width: 100%
+        width: 100% !important
     }
 
     .color-text-container {
