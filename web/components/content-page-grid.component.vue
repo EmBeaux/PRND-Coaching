@@ -47,18 +47,19 @@ export default class ContentPageGrid extends Vue {
         this.activeModal = variable;
     }
     public get calendlyURL(): string {
-        let activeURL: string = "";
+        let activeURL: string = "https://calendly.com/prndcoaching/";
         switch(this.activeModal) {
             case 'seminar':
-                activeURL = 'https://calendly.com/prndcoaching/seminar-session-no-charge-1-hour'
+                activeURL += 'seminar-session-no-charge-1-hour'
                 break;
             case 'consult':
-                activeURL = 'https://calendly.com/prndcoaching/initial-consult-no-charge-30-minutes'
+                activeURL += 'initial-consult-no-charge-30-minutes'
                 break;
             case '360':
-                activeURL = 'https://calendly.com/prndcoaching/360-assessor-interview-15-30-mins'
+                activeURL += '360-assessor-interview-15-30-mins'
                 break;
             default:
+            activeURL = ""
                 break;
         }
         return activeURL;
