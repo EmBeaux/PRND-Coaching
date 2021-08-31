@@ -43,7 +43,7 @@ export default class EditContentPage extends Vue {
                     this.searchForChildren(child)
                 }
                 if (indexOfChild !== -1) {
-                    let newObject = {}
+                    let newObject: EditableInputs = {}
                     newObject[this.editableElements[indexOfChild]] = child.innerText.trim();
                     this.editableInputs = newObject
                     return;
