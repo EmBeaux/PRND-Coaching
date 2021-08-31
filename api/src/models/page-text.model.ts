@@ -31,7 +31,10 @@ const PageTextSchema = new Schema({
                 required: false,
             },
          }]
-    }
+    },
+    editableElements: [{
+        type: String
+    }]
 });
 
 const PageText = mongoose.model("PageText", PageTextSchema);

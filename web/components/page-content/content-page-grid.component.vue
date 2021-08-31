@@ -33,8 +33,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import Modal from './modal.component.vue'
-import { GridItem, ActiveModal } from './types/content-page.types';
+import Modal from '../global/modal.component.vue'
+import { GridItem, ActiveModal } from '../types/content-page.types';
 
 @Component({
     components: { Modal }

@@ -5,7 +5,7 @@
 <script lang="ts">
 import '@nuxt/types'
 import { Vue, Component } from "vue-property-decorator";
-import ContentPage from "../../components/content-page.component.vue"
+import ContentPage from "../../components/page-content/content-page.component.vue"
 
 @Component({
   components: {

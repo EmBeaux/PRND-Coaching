@@ -14,5 +14,6 @@ export interface PageText {
     content: {
         main: string,
         grid: GridItem[]
-    }
+    },
+    editableElements: string[]
 }

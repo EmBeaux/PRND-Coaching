@@ -6,7 +6,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import HeaderNav from "../components/header-nav.component.vue";
+import HeaderNav from "../components/global/header-nav.component.vue";
 
 @Component({
   components: { HeaderNav }
