@@ -5,8 +5,8 @@
         <ContentPageGrid :grid="pageText.content.grid" />
     </div>
     <div v-else-if="pageText.page" class="content__header fv-margin-bottom fv-padding">
-        <EditContentPage :pageTextRef="$refs['page-text']" :editableElements="pageText.editableElements" />
-        <EditContentPageGrid :grid="pageText.content.grid" />
+        <EditContentPage @onSubmit="editMode = false" :id="pageText._id" :pageText="pageText" :pageTextRef="$refs['page-text']" />
+        <EditContentPageGrid :id="pageText._id" :grid="pageText.content.grid" />
     </div>
     <button @click="editMode = !editMode"> click me </button>
   </div>
@@ -54,7 +54,7 @@ export default class ContentPage extends Vue {
         return this.pageText.content.main.replace(String.fromCharCode(92), "")
     }
     async mounted() {
-        apiCall<{ pageTexts: PageText[] }>(
+        apiCall<{ data: { pageTexts: PageText[] } }>(
             "get",
             "pageText",
             { params: { page: this.$route.name }

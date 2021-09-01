@@ -8,8 +8,8 @@ type Methods =
 interface GenericObject {
     [key: string]: any
 }
-type ApiCallGenericReturn = <T>(method: Methods, record: String, query: GenericObject) => Promise<{ data: T  }>;
-export const apiCall: ApiCallGenericReturn = async (method: Methods, record: String, query: GenericObject) => {
+type ApiCallGenericReturn = <T>(method: Methods, record: String, query: GenericObject, data?: GenericObject) => Promise<T>;
+export const apiCall: ApiCallGenericReturn = async (method: Methods, record: String, query: GenericObject,  data?: GenericObject) => {
     let url = `/${record}`
     if (query.id) {
         url += `/${query.id}`
@@ -20,5 +20,5 @@ export const apiCall: ApiCallGenericReturn = async (method: Methods, record: Str
         url += '?' + queryString;
     }
 
-    return await axios.create({ baseURL: process.env.API_URL}).request({ url, method })
+    return await axios.create({ baseURL: process.env.API_URL}).request({ url, method, data: data || {} })
 }
