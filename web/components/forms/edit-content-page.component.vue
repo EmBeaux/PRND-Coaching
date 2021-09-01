@@ -38,7 +38,7 @@ export default class EditContentPage extends Vue {
     }
     public async submitContentPage() {
         await this.searchForChildren(this.pageTextRef, true)
-        const stringifiedPageText = `${this.pageTextRef.outerHTML}`
+        const stringifiedPageText = `${this.pageTextRef.children[0].outerHTML}`
         const pageTextClone = this.pageText;
         pageTextClone.content.main = stringifiedPageText;
         apiCall<{ data: { success: boolean, message: string } }>(
