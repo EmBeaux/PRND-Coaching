@@ -17,3 +17,6 @@ export interface PageText {
     },
     editableElements: string[]
 }
+export interface GenericObject {
+    [key: string]: any
+}

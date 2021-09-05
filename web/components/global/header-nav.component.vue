@@ -56,6 +56,7 @@ export default class HeaderNav extends Vue {}
     top: 0;
     left: 0;
     right: 0;
+    z-index: 999;
 }
 
 .header {

@@ -1,14 +1,17 @@
 <template>
   <div class="content fv-padding">
-    <div v-if="pageText.page && !editMode" class="content__header fv-margin-bottom fv-padding">
-        <div ref="page-text" v-html="pageTextMain" />
-        <ContentPageGrid :grid="pageText.content.grid" />
+    <div v-if="pageText.page" class="content__header fv-margin-bottom fv-padding">
+        <div class="edit-icon-container">
+            <a @click="editMode = { main: !editMode.main }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+            <div v-if="!editMode.main" ref="page-text" v-html="pageTextMain" />
+            <EditContentPage v-else @onSubmit="editMode = false" :id="pageText._id" :pageText="pageText" :pageTextRef="$refs['page-text']" />
+        </div>
+        <div class="edit-icon-container">
+            <a @click="editMode = { grid: !editMode.grid }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+            <ContentPageGrid v-if="!editMode.grid" :grid="pageText.content.grid" />
+            <EditContentPageGrid v-else :id="pageText._id" :grid="pageText.content.grid" />
+        </div>
     </div>
-    <div v-else-if="pageText.page" class="content__header fv-margin-bottom fv-padding">
-        <EditContentPage @onSubmit="editMode = false" :id="pageText._id" :pageText="pageText" :pageTextRef="$refs['page-text']" />
-        <EditContentPageGrid :id="pageText._id" :grid="pageText.content.grid" />
-    </div>
-    <button @click="editMode = !editMode"> click me </button>
   </div>
 </template>
 
@@ -18,7 +21,7 @@ import { apiCall } from '../../library/api.helper';
 import ContentPageGrid from './content-page-grid.component.vue'
 import EditContentPageGrid from '../forms/edit-content-page-grid.component.vue'
 import EditContentPage from '../forms/edit-content-page.component.vue'
-import { PageText } from '../types/content-page.types';
+import { PageText, GenericObject } from '../types/content-page.types';
 
 @Component({
     components: {
@@ -28,7 +31,10 @@ import { PageText } from '../types/content-page.types';
     }
 })
 export default class ContentPage extends Vue {
-    private xeditMode: boolean = false;
+    private xeditMode: GenericObject = {
+        main: false,
+        grid: false
+    };
     private xpageText: PageText = {
         page: "",
         content: {
@@ -44,10 +50,10 @@ export default class ContentPage extends Vue {
     public get pageText(): PageText {
         return this.xpageText;
     }
-    public set editMode(value: boolean) {
-        this.xeditMode = value;
+    public set editMode(value: GenericObject) {
+        this.xeditMode = { ...this.xeditMode, ...value }
     }
-    public get editMode(): boolean {
+    public get editMode(): GenericObject {
         return this.xeditMode;
     }
     public get pageTextMain(): string {
@@ -67,9 +73,19 @@ export default class ContentPage extends Vue {
 
 <style>
 .content {
-    margin: 2.5em auto !important;
+    margin: 3em auto !important;
     display: flex;
     width: 75%;
     flex-direction: column;
+}
+.edit-icon-container {
+    position: relative
+}
+
+.edit-icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    pointer-events: auto;
 }
 </style>
