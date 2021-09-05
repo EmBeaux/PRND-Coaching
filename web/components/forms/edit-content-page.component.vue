@@ -1,8 +1,9 @@
 <template>
     <div v-if="loaded">
-        <div v-for="element in pageText.editableElements" :key="element">
+        <!-- <div v-for="element in pageText.editableElements" :key="element">
             <textarea :name="element" :id="element" :value="editableInputs[element]" v-on:input="editableInputChange(element, $event.target.value)"> </textarea>
-        </div>
+        </div> -->
+        <div v-html="pageTextRef.innerHTML" />
         <button @click="submitContentPage"> Submit </button>
     </div>
 </template>
@@ -38,7 +39,11 @@ export default class EditContentPage extends Vue {
     }
     public async submitContentPage() {
         await this.searchForChildren(this.pageTextRef, true)
-        const stringifiedPageText = `${this.pageTextRef.children[0].outerHTML}`
+        let stringifiedPageText = "";
+        // @ts-expect-error
+        this.pageTextRef.children.forEach(child => {
+            stringifiedPageText += `${child.outerHTML}`
+        })
         const pageTextClone = this.pageText;
         pageTextClone.content.main = stringifiedPageText;
         apiCall<{ data: { success: boolean, message: string } }>(
@@ -57,6 +62,7 @@ export default class EditContentPage extends Vue {
         let newObject: EditableInputs = {}
         newObject[key] = value;
         this.editableInputs = newObject
+        
     }
     public searchForChildren(element: Element, update?: boolean) {
         if (element.children && element.children.length) {
@@ -72,11 +78,13 @@ export default class EditContentPage extends Vue {
                 if (indexOfChild !== -1) {
                     if (update) {
                         let newChild = child.cloneNode(true)
-                        newChild.innerText = this.editableInputs[this.pageText.editableElements[indexOfChild]]
-
+                        // @ts-expect-error
+                        newChild.innerHTML = document.getElementsByClassName(child.className)[0].children[0].value
                         element.replaceChild(newChild, child)
                     } else {
-                        this.editableInputChange(this.pageText.editableElements[indexOfChild], child.innerText.trim())
+                        let newChild = child.cloneNode(true)
+                        newChild.innerHTML = `<textarea>${child.innerText.trim()}</textarea>`;
+                        element.replaceChild(newChild, child);
                     }
                     return;
                 }
