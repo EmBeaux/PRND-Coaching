@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import userRoutes from "./routes/user.routes";
 import pageTextRoutes from "./routes/page-text.routes";
+import photoRoutes from "./routes/photos.routes";
 
 mongoose.connect('mongodb://localhost:27017');
 const db = mongoose.connection;
@@ -23,3 +24,4 @@ app.listen(3001, () => {
 // List of all api routes
 userRoutes(app);
 pageTextRoutes(app);
+photoRoutes(app);

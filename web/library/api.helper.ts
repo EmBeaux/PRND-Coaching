@@ -18,6 +18,6 @@ export const apiCall: ApiCallGenericReturn = async (method: Methods, record: Str
         const queryString = Object.keys(query.params).map(key => key + '=' + query.params[key]).join('&');
         url += '?' + queryString;
     }
-
-    return await axios.create({ baseURL: process.env.API_URL}).request({ url, method, data: data || {} })
+debugger;
+    return await axios.create({ baseURL: process.env.API_URL}).request({ url, method, data: data })
 }

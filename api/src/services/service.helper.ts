@@ -5,7 +5,6 @@ export default (model: Model<any>, record: String) => {
     return {
         create(req: Request, res: Response) {
             const newRecord = new model({ ...req.body })
-    
             newRecord.save((error: any) => {
               if (error) {
                 console.log(error)
