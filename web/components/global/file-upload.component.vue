@@ -4,7 +4,7 @@
       <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
         <h1>Upload images</h1>
         <div class="dropbox">
-          <input type="file" multiple :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
+          <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
             accept="image/*" class="input-file">
             <p v-if="isInitial">
               Drag your file(s) here to begin<br> or click to browse
@@ -50,7 +50,7 @@ enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_
         private xuploadedFiles: any[] = [];
         private xuploadError: null | string = null;
         private xcurrentStatus: Status = STATUS_INITIAL;
-        private xuploadFieldName: string = "photos"
+        private xuploadFieldName: string = "photo"
 
         public get isInitial(): boolean {
             return this.currentStatus === STATUS_INITIAL;
@@ -117,7 +117,7 @@ enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_
         }
         public filesChange(fieldName: string, fileList: any[]) {
           const formData = new FormData();
-          formData.append("name", fieldName);
+          formData.append("photo", fieldName);
             for(let i =0; i < fileList.length; i++) {
               formData.append("files", fileList[i]);
           }
