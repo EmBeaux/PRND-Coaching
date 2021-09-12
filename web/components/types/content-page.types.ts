@@ -1,6 +1,7 @@
 export type ActiveModal = 'consult' | '360' | 'seminar' | '';
 
 export interface GridItem {
+    _id: string,
     icon?: string,
     title: string,
     description: string,

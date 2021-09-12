@@ -41,10 +41,10 @@
 <script lang="ts">
     import { Vue, Component } from "vue-property-decorator";
     import { apiCall } from '../../library/api.helper';
-    import { GenericObject } from "../types/content-page.types"
 
-enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3 }
+    enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3 }
     const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+
     @Component
     export default class FileUpload extends Vue {
         private xuploadedFiles: any[] = [];
@@ -95,6 +95,7 @@ enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_
         public save(formData: FormData) {
             // upload data to the server
             this.currentStatus = STATUS_SAVING;
+            this.$emit("imageSaving", true)
 
             apiCall<{ data: any[] }>(
                 "post",
@@ -109,22 +110,31 @@ enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_
             .then((images: any) => {
                 this.uploadedFiles = [].concat(images);
                 this.currentStatus = STATUS_SUCCESS;
+                this.$emit("imageSaving", false)
             })
             .catch(err => {
                 this.uploadError = err.response;
                 this.currentStatus = STATUS_FAILED;
+                this.$emit("imageSaving", false)
             });
         }
         public filesChange(fieldName: string, fileList: any[]) {
           const formData = new FormData();
-          formData.append("photo", fieldName);
-            for(let i =0; i < fileList.length; i++) {
-              formData.append("files", fileList[i]);
+          debugger;
+          if (fieldName && fileList) {
+            formData.append("photo", fieldName);
+              for(let i =0; i < fileList.length; i++) {
+                formData.append("files", fileList[i]);
+            }
+            this.currentStatus = STATUS_SUCCESS;
+            // this.$emit("imageChange", formData)
+            this.save(formData); 
+          } else {
+            this.currentStatus = STATUS_FAILED;
           }
-          this.save(formData);
         }
         mounted() {
-            this.reset();
+          this.reset();
         }
     }
 
