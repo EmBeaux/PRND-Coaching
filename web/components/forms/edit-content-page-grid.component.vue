@@ -61,24 +61,30 @@ export default class EditContentPageGrid extends Vue {
     public async onSubmitGrid() {
         const clonedPageText = JSON.parse(JSON.stringify(this.syncedPageText));
         for (let i = 0; i < this.syncedPageText.content.grid.length; i++) {
-            if (this.imageFormData && this.imageFormData[this.syncedPageText.content.grid[i]._id] && this.syncedPageText.content.grid[i].image) {
-                const photo = await this.saveImage(this.imageFormData[this.syncedPageText.content.grid[i]._id])
+            let syncedPageGridItem = this.syncedPageText.content.grid[i]
+            let clonedPageGridItem = clonedPageText.content.grid[i]
+            const formGridItem = this.formGrid[i];
+            if (this.imageFormData && this.imageFormData[syncedPageGridItem._id] && syncedPageGridItem.image) {
+                const photo = await this.saveImage(this.imageFormData[syncedPageGridItem._id])
                 if (photo) {
-                    clonedPageText.content.grid[i].image = photo[0]._id;
-                    this.syncedPageText.content.grid[i].image = `data:${photo[0].mimetype};base64,${Buffer.from(photo[0].buffer.data).toString('base64')}`
+                    clonedPageGridItem.image = photo[0]._id;
+                    syncedPageGridItem.image = `data:${photo[0].mimetype};base64,${Buffer.from(photo[0].buffer.data).toString('base64')}`
                 }
-            } else if (this.syncedPageText.content.grid[i] && this.syncedPageText.content.grid[i].image && this.syncedPageText.content.grid[i].image!.includes("data:")) {
-                clonedPageText.content.grid[i].image = clonedPageText.content.grid[i].imageId
+            } else if (syncedPageGridItem && syncedPageGridItem.image && syncedPageGridItem.image!.includes("data:")) {
+                clonedPageGridItem.image = clonedPageGridItem.imageId
             }
 
-            if (!this.syncedPageText.content.grid[i].image) {
-                this.syncedPageText.content.grid[i] = this.formGrid[i];
-                clonedPageText.content.grid[i] = this.formGrid[i];
+            if (!syncedPageGridItem.image) {
+                syncedPageGridItem = formGridItem;
+                clonedPageGridItem = formGridItem;
             } else {
-                delete this.formGrid[i].image;
-                this.syncedPageText.content.grid[i] = { ...this.syncedPageText.content.grid[i], ...this.formGrid[i]}
-                clonedPageText.content.grid[i] = { ...clonedPageText.content.grid[i], ...this.formGrid[i]}
+                delete formGridItem.image;
+                syncedPageGridItem = { ...syncedPageGridItem, ...formGridItem}
+                clonedPageGridItem = { ...clonedPageGridItem, ...formGridItem}
             }
+
+            clonedPageText.content.grid[i] = clonedPageGridItem;
+            this.syncedPageText.content.grid[i] = syncedPageGridItem;
         }
         apiCall<{ data: { success: boolean, message: string } }>(
             "put",
