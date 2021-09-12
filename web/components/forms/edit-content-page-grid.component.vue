@@ -70,7 +70,7 @@ export default class EditContentPageGrid extends Vue {
                     clonedPageGridItem.image = photo[0]._id;
                     syncedPageGridItem.image = `data:${photo[0].mimetype};base64,${Buffer.from(photo[0].buffer.data).toString('base64')}`
                 }
-            } else if (syncedPageGridItem && syncedPageGridItem.image && syncedPageGridItem.image!.includes("data:")) {
+            } else if (syncedPageGridItem && syncedPageGridItem.image && syncedPageGridItem.image.includes("data:")) {
                 clonedPageGridItem.image = clonedPageGridItem.imageId
             }
 
