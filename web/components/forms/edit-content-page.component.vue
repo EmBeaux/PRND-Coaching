@@ -1,8 +1,5 @@
 <template>
     <div v-if="loaded">
-        <!-- <div v-for="element in pageText.editableElements" :key="element">
-            <textarea :name="element" :id="element" :value="editableInputs[element]" v-on:input="editableInputChange(element, $event.target.value)"> </textarea>
-        </div> -->
         <div v-html="pageTextRef.innerHTML" />
         <button @click="submitContentPage"> Submit </button>
     </div>
@@ -44,8 +41,9 @@ export default class EditContentPage extends Vue {
         this.pageTextRef.children.forEach(child => {
             stringifiedPageText += `${child.outerHTML}`
         })
-        const pageTextClone = this.pageText;
+        const pageTextClone = JSON.parse(JSON.stringify(this.pageText));
         pageTextClone.content.main = stringifiedPageText;
+        this.pageText.content.main = stringifiedPageText;
         pageTextClone.content.grid.forEach(gridItem => {
             if (gridItem.image && gridItem.image.includes("data:")) {
                 gridItem.image = gridItem.imageId
@@ -88,7 +86,7 @@ export default class EditContentPage extends Vue {
                         element.replaceChild(newChild, child)
                     } else {
                         let newChild = child.cloneNode(true)
-                        newChild.innerHTML = `<textarea>${child.innerText.trim()}</textarea>`;
+                        newChild.innerHTML = `<textarea rows="4" cols="40">${child.innerText.trim()}</textarea>`;
                         element.replaceChild(newChild, child);
                     }
                     return;
