@@ -46,6 +46,11 @@ export default class EditContentPage extends Vue {
         })
         const pageTextClone = this.pageText;
         pageTextClone.content.main = stringifiedPageText;
+        pageTextClone.content.grid.forEach(gridItem => {
+            if (gridItem.image && gridItem.image.includes("data:")) {
+                gridItem.image = gridItem.imageId
+            }
+        })
         apiCall<{ data: { success: boolean, message: string } }>(
             "put",
             "pageText",
