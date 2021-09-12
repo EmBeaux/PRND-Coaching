@@ -11,7 +11,6 @@ const PhotoSchema = new Schema({
     path: String,
     size: Number,
     buffer: Schema.Types.Buffer
-
 });
 
 const Photo = mongoose.model("Photo", PhotoSchema);

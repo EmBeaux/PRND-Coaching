@@ -4,12 +4,12 @@
         <div class="edit-icon-container">
             <a @click="editMode = { main: !editMode.main }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
             <div v-if="!editMode.main" ref="page-text" v-html="pageTextMain" />
-            <EditContentPage v-else @onSubmit="editMode = false" :id="pageText._id" :pageText="pageText" :pageTextRef="$refs['page-text']" />
+            <EditContentPage v-else @onSubmit="editMode = { main: false }" :id="pageText._id" :pageText="pageText" :pageTextRef="$refs['page-text']" />
         </div>
         <div class="edit-icon-container">
             <a @click="editMode = { grid: !editMode.grid }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
             <ContentPageGrid v-if="!editMode.grid" :grid="pageText.content.grid" />
-            <EditContentPageGrid v-else :id="pageText._id" :grid="pageText.content.grid" />
+            <EditContentPageGrid v-else @onSubmit="editMode = { grid: false }"  :pageText="pageText" />
         </div>
     </div>
   </div>
@@ -36,6 +36,7 @@ export default class ContentPage extends Vue {
         grid: false
     };
     private xpageText: PageText = {
+        _id: "",
         page: "",
         content: {
             main: "",

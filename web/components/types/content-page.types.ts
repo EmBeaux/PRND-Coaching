@@ -7,10 +7,12 @@ export interface GridItem {
     description: string,
     buttonText?: string,
     modalType?: string,
-    image?: string
+    image?: string,
+    imageId?: string
 }
 
 export interface PageText {
+    _id: string,
     page: string,
     content: {
         main: string,
@@ -21,3 +23,13 @@ export interface PageText {
 export interface GenericObject {
     [key: string]: any
 }
+
+interface PhotoPartial {
+    _id: string
+    mimetype: string
+    buffer: {
+        type: string,
+        data: Buffer
+    }
+}
+export type Photo = Blob & PhotoPartial

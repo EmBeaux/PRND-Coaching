@@ -1,6 +1,6 @@
 <template>
     <div class="modal-grid">
-        <div v-for="gridItem in grid" :key="gridItem._id" class="edit-grid-item">
+        <div v-for="gridItem in formGrid" :key="gridItem._id" class="edit-grid-item">
             <mdicon v-if="gridItem.icon" :name="gridItem.icon" /> 
             <textarea class="grid-item-title" v-model="gridItem.title" :style="{ color: gridItem.image && '#B90101' }"></textarea>
             <textarea class="grid-item-description" v-model="gridItem.description"></textarea>
@@ -12,17 +12,18 @@
                 v-model="gridItem.buttonText"
             >
             </textarea>
-            <img class="grid-item-image" v-if="gridItem.image && !imageFormData && !imageSaving" :src="gridItem.image" />
-            <FileUpload v-if="gridItem.image" @imageSaving="imageSaving = $event" @imageChange="onImageChange($event, gridItem._id)" />
+            <img class="grid-item-image" v-if="gridItem.image" :src="gridItem.image" />
+            <FileUpload v-if="gridItem.image" :id="gridItem._id" @imageChange="onImageChange($event, gridItem._id)" />
         </div>
         <button @click="onSubmitGrid"> Submit </button>
     </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
-import { GridItem } from '../types/content-page.types';
+import { Vue, Component, Prop, PropSync } from "vue-property-decorator";
+import { GridItem, PageText, Photo } from '../types/content-page.types';
 import FileUpload from '../global/file-upload.component.vue'
+import { apiCall } from '../../library/api.helper';
 
 interface ImageFormDataObject {
     [key: string]: FormData
@@ -33,22 +34,14 @@ interface ImageFormDataObject {
     }
 })
 export default class EditContentPageGrid extends Vue {
-    @Prop() readonly grid: GridItem[]
-    @Prop() readonly id: string
+    @PropSync('pageText', { type: Object }) syncedPageText: PageText
     private ximageFormData: ImageFormDataObject | null = null;
-    private ximageSaving: boolean = false;
-    private xformGrid: GridItem[];
+    private xformGrid: GridItem[] = [];
     public set imageFormData(value: ImageFormDataObject | null) {
         this.ximageFormData = value;
     }
     public get imageFormData(): ImageFormDataObject | null {
         return this.ximageFormData;
-    }
-    public set imageSaving(value: boolean) {
-        this.ximageSaving = value;
-    }
-    public get imageSaving(): boolean {
-        return this.ximageSaving;
     }
     public set formGrid(value: GridItem[]) {
         this.xformGrid = value;
@@ -65,31 +58,77 @@ export default class EditContentPageGrid extends Vue {
         this.imageFormData = newObj
         this.readBuffer(id, imageFormData);
     }
-    public onSubmitGrid() {
-        // debugger;
-        // if (this.imageFormData) {
-        //     Object.keys(this.imageFormData).forEach(newImage => {
-                
-        //     })
-        // }
+    public async onSubmitGrid() {
+        const clonedPageText = JSON.parse(JSON.stringify(this.syncedPageText));
+        for (let i = 0; i < this.syncedPageText.content.grid.length; i++) {
+            if (this.imageFormData && this.imageFormData[this.syncedPageText.content.grid[i]._id] && this.syncedPageText.content.grid[i].image) {
+                const photo = await this.saveImage(this.imageFormData[this.syncedPageText.content.grid[i]._id])
+                if (photo) {
+                    clonedPageText.content.grid[i].image = photo[0]._id;
+                    this.syncedPageText.content.grid[i].image = `data:${photo[0].mimetype};base64,${Buffer.from(photo[0].buffer.data).toString('base64')}`
+                }
+            } else if (this.syncedPageText.content.grid[i] && this.syncedPageText.content.grid[i].image && this.syncedPageText.content.grid[i].image!.includes("data:")) {
+                clonedPageText.content.grid[i].image = clonedPageText.content.grid[i].imageId
+            }
+
+            if (!this.syncedPageText.content.grid[i].image) {
+                this.syncedPageText.content.grid[i] = this.formGrid[i];
+                clonedPageText.content.grid[i] = this.formGrid[i];
+            } else {
+                delete this.formGrid[i].image;
+                this.syncedPageText.content.grid[i] = { ...this.syncedPageText.content.grid[i], ...this.formGrid[i]}
+                clonedPageText.content.grid[i] = { ...clonedPageText.content.grid[i], ...this.formGrid[i]}
+            }
+        }
+        apiCall<{ data: { success: boolean, message: string } }>(
+            "put",
+            "pageText",
+            { id: clonedPageText._id },
+            clonedPageText
+        ).then(response => {
+            if (response.data.success) {
+                this.$emit('onSubmit')
+            }
+        })
+
+        this.$emit("onSubmit")
     }
     public readBuffer(id: string, formData: FormData): void {
         const reader = new FileReader();
 
         reader.onload = (e) => {
             const formGridIndex = this.formGrid.findIndex(gridItem => {
-                gridItem._id === id
+                return gridItem._id === id
             })
 
             const mutatedFormGrid = this.formGrid;
-            debugger;
-            // mutatedFormGrid[formGridIndex].image = 
+            if (e.target) {
+                mutatedFormGrid[formGridIndex].image = e.target.result as string;
+                this.formGrid = mutatedFormGrid;
+            }
         }
-        debugger;
-        // reader.readAsBinaryString()
+        // @ts-expect-error
+        reader.readAsDataURL(formData.get("files"))
+    }
+    public async saveImage(formData: FormData): Promise<Photo[] | void> {
+        return await apiCall<{ data: { success: boolean, message: string, payload: Photo[] } }>(
+            "post",
+            "photo",
+            {},
+            formData
+        )
+        .then(response => response.data)
+        .then((response: { success: boolean, message: string, payload: Photo[] }) => {
+            if (response.success) {
+                return response.payload;
+            }
+        })
+        .catch(err => {
+
+        });
     }
     mounted() {
-        this.formGrid = this.grid;
+        this.formGrid = JSON.parse(JSON.stringify(this.syncedPageText.content.grid));
     }
 }
 </script>

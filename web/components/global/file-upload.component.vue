@@ -14,25 +14,12 @@
             </p>
         </div>
       </form>
-      <!--SUCCESS-->
-      <div v-if="isSuccess">
-        <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-        <p>
-          <a href="javascript:void(0)" @click="reset()">Upload again</a>
-        </p>
-        <ul class="list-unstyled">
-          <li v-for="item in uploadedFiles" :key="item">
-            <img :src="item.url" class="img-responsive img-thumbnail" :alt="item.originalName">
-          </li>
-        </ul>
-      </div>
       <!--FAILED-->
       <div v-if="isFailed">
         <h2>Uploaded failed.</h2>
         <p>
           <a href="javascript:void(0)" @click="reset()">Try again</a>
         </p>
-        <pre>{{ uploadError }}</pre>
       </div>
     </div>
   </div>
@@ -40,7 +27,6 @@
 
 <script lang="ts">
     import { Vue, Component } from "vue-property-decorator";
-    import { apiCall } from '../../library/api.helper';
 
     enum Status { STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3 }
     const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
@@ -92,43 +78,15 @@
             this.uploadedFiles = [];
             this.uploadError = null;
         }
-        public save(formData: FormData) {
-            // upload data to the server
-            this.currentStatus = STATUS_SAVING;
-            this.$emit("imageSaving", true)
-
-            apiCall<{ data: any[] }>(
-                "post",
-                "photo",
-                {},
-                formData
-            )
-            .then(response => response.data)
-            .then(images => images.map(img => Object.assign({},
-                img, { url: `${process.env.API_URL}/photo/${img.id}` }))
-            )
-            .then((images: any) => {
-                this.uploadedFiles = [].concat(images);
-                this.currentStatus = STATUS_SUCCESS;
-                this.$emit("imageSaving", false)
-            })
-            .catch(err => {
-                this.uploadError = err.response;
-                this.currentStatus = STATUS_FAILED;
-                this.$emit("imageSaving", false)
-            });
-        }
         public filesChange(fieldName: string, fileList: any[]) {
           const formData = new FormData();
-          debugger;
           if (fieldName && fileList) {
             formData.append("photo", fieldName);
               for(let i =0; i < fileList.length; i++) {
                 formData.append("files", fileList[i]);
             }
             this.currentStatus = STATUS_SUCCESS;
-            // this.$emit("imageChange", formData)
-            this.save(formData); 
+            this.$emit("imageChange", formData)
           } else {
             this.currentStatus = STATUS_FAILED;
           }

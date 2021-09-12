@@ -22,6 +22,6 @@ app.listen(3001, () => {
 });
 
 // List of all api routes
+photoRoutes(app);
 userRoutes(app);
 pageTextRoutes(app);
-photoRoutes(app);

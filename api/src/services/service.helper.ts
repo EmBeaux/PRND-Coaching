@@ -24,12 +24,20 @@ export default (model: Model<any>, record: String) => {
                 res.send({ success: true, message: `${record} updated successfully!`})
             })
         },
-        read(req: Request, res: Response) {
-            model.find(req.query).then((data: any)=> {
+        read(req: Request, res: Response, noRes?: boolean): void | any {
+            if (noRes) {
+              return model.find(req.query).then((data: any)=> {
+                  const payload = {};
+                  payload[record + "s"] = data;
+                  return data
+                })
+            } else {
+              model.find(req.query).then((data: any)=> {
                 const payload = {};
                 payload[record + "s"] = data;
                 res.send(payload);
               })
+            }
         },
         delete(req: Request, res: Response) {
             model.findById(req.params.id).then((modelRecord: any) => {
