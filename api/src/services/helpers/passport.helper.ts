@@ -4,7 +4,7 @@ import User from '../../models/user.model'
 
 const LocalStrategy = passportLocal.Strategy;
 
-module.exports = function(passport) {
+export default function(passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' },(email, password, done)=> {
             //match user
@@ -28,13 +28,12 @@ module.exports = function(passport) {
         })
         
     )
-    passport.serializeUser(function(user, done) {
-        done(null, user.id);
-      });
+    passport.serializeUser((user, done) => {
+        done(null, user.id)
+    })
+    passport.deserializeUser((id, done) => {
+        let user = User.findOne({ _id: id })
       
-      passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-          done(err, user);
-        });
-      }); 
+        done(null, user)
+    })
 }; 

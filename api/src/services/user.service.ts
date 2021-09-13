@@ -8,7 +8,7 @@ import passport from "passport";
 export default {
   ...serviceHelper(User, 'user'),
   login(req: Request, res: Response, next) {
-    passport.authenticate('local', function(err, user, info) {
+    passport.authenticate('local', (err, user, info) => {
       if (err) { return next(err); } //error exception
 
       // user will be set to false, if not authenticated
@@ -18,12 +18,11 @@ export default {
             message: info,
           })
       } else {
-          // if user authenticated maintain the session
-          req['session'].userToken =  generateSessionToken();
-          res.send({
-            success: true,
-            message: "Login successful",
-            userToken: req["session"].userToken
+          req['login'](user, err => {
+            res.send({
+              success: true,
+              message: "Login successful",
+            })
           })
       }    
     })(req, res, next);
@@ -87,10 +86,17 @@ export default {
     }
   },
   logout(req: Request, res: Response) {
-    req['session'] = null;
+    req["logout"]();
     res.send({
       success: true,
       message: "Logout successful"
     })
+  },
+  currentUser(req: Request, res: Response) {
+    let user = User.findOne({_id: req['session'].passport.user})
+  
+    console.log([user, req["session"]])
+  
+    res.send({ success: true, user })
   }
 }

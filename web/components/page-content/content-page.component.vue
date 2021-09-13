@@ -44,7 +44,13 @@ export default class ContentPage extends Vue {
         },
         editableElements: []
     };
-
+    private xisAdmin: boolean = false;
+    public set isAdmin(value: boolean) {
+        this.xisAdmin = value;
+    }
+    public get isAdmin(): boolean {
+        return this.xisAdmin;
+    }
     public set pageText(value: PageText) {
         this.xpageText = value;
     }
@@ -61,12 +67,13 @@ export default class ContentPage extends Vue {
         return this.pageText.content.main.replace(String.fromCharCode(92), "")
     }
     async mounted() {
-        apiCall<{ data: { pageTexts: PageText[] } }>(
+        apiCall<{ data: { pageTexts: PageText[], isAdmin: boolean } }>(
             "get",
             "pageText",
-            { params: { page: this.$route.name }
-        }).then(response => {
+            { params: { page: this.$route.name } }
+        ).then(response => {
             this.pageText = response.data.pageTexts[0]
+            this.isAdmin = response.data.isAdmin
         })
     }
 }

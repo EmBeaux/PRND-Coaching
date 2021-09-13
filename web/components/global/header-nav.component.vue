@@ -122,6 +122,7 @@ export default class HeaderNav extends Vue {
     margin: 0 auto;
     width: 60%;
     min-height: 4.5em;
+    align-items: center;
 }
 
 .header-nav {
