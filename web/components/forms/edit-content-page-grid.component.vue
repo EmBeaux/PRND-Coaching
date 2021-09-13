@@ -60,8 +60,8 @@ export default class EditContentPageGrid extends Vue {
     public get uploadNewFile(): { [key: string]: boolean } {
         return this.xuploadNewFile;
     }
-    public setUploadNewFile(id, value)  {
-        const newObj = {}
+    public setUploadNewFile(id: string, value: boolean)  {
+        const newObj: { [key: string]: boolean } = {}
         newObj[id] = value;
         this.uploadNewFile = { ...this.uploadNewFile, ...newObj }
     }

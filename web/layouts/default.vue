@@ -27,6 +27,6 @@ html {
 
 body {
   background: #FAF9F6;
-  height: 1500px;
+  min-height: 650px;
 } 
 </style>

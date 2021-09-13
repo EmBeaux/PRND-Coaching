@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { apiCall } from '../../library/api.helper';
-import { PageText } from '../types/content-page.types';
+import { GridItem, PageText } from '../types/content-page.types';
 
 interface EditableInputs {
     [key: string]: string
@@ -44,7 +44,7 @@ export default class EditContentPage extends Vue {
         const pageTextClone = JSON.parse(JSON.stringify(this.pageText));
         pageTextClone.content.main = stringifiedPageText;
         this.pageText.content.main = stringifiedPageText;
-        pageTextClone.content.grid.forEach(gridItem => {
+        pageTextClone.content.grid.forEach((gridItem: GridItem) => {
             if (gridItem.image && gridItem.image.includes("data:")) {
                 gridItem.image = gridItem.imageId
             }

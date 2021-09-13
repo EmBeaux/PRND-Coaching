@@ -21,7 +21,7 @@ export default class AboutMeIndex extends Vue {}
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  background-color: #987575;
+  background-color: #8f1e1e;
 }
 
 .headshot {
@@ -43,7 +43,7 @@ export default class AboutMeIndex extends Vue {}
 }
 
 .introduction-header {
-  color: #B90101;
+  color: white;
   font-weight: bold;
   font-size: 35px;
   word-wrap: break-word;

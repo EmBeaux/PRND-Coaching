@@ -37,7 +37,7 @@ export default class AboutMeIndex extends Vue {}
     width: 100%;
     height: 25vh;
     align-items: center;
-    background-color: #987575;
+    background-color: #8f1e1e;
     display: flex;
     justify-content: flex-start;
     border-bottom-right-radius: 10px;
@@ -79,7 +79,7 @@ export default class AboutMeIndex extends Vue {}
 }
 
 .content-image {
-    width: 350px
+    width: 250px
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1515px) {
@@ -101,8 +101,8 @@ export default class AboutMeIndex extends Vue {}
     }
 
     .content-image {
-        margin-top: -90px;
-        margin-bottom: -80px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 }
 
@@ -120,10 +120,8 @@ export default class AboutMeIndex extends Vue {}
 
     .content-image {
         width: 230px;
-        margin-top: 10px;
-        margin-top: -3em;
-        margin-bottom: -3em;
-        margin-left: -1em;
+        margin-top: 1em;
+        margin-bottom: 1em;
     }
 
     .color-text-container {

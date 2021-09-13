@@ -1,9 +1,7 @@
 import PageText from "../models/page-text.model"
-import Photo from "../models/Photo.model"
 import { Request, Response } from 'express';
 import photoService from "../services/photo.service"
 import serviceHelper from "./service.helper";
-import { ObjectId } from "mongodb";
 
 export default {
   ...serviceHelper(PageText, 'pageText'),
