@@ -45,9 +45,12 @@
                 <NuxtLink to="/blog">
                     Blog
                 </NuxtLink>
-                <NuxtLink to="/login">
+                <NuxtLink v-if="!currentUser|| (currentUser && !currentUser.email)" to="/login">
                     Sign In
                 </NuxtLink>
+                <a v-else @click="signOutModal = true">
+                    Sign Out
+                </a>
             </Slide>
         </div>
         <hr class="divider" />

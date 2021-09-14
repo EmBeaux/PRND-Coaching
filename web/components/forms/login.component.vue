@@ -64,6 +64,9 @@ export default class Login extends Vue {
         }).then(() => {
             this.setCurrentUser(this.$store['$auth'].$state.user)
         })
+        .catch(() => {
+            this.errorText = "Invalid Email or Password"
+        })
     }
 }
 </script>
