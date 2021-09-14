@@ -2,12 +2,12 @@
   <div class="content fv-padding">
     <div v-if="pageText.page" class="content__header fv-margin-bottom fv-padding">
         <div class="edit-icon-container">
-            <a @click="editMode = { main: !editMode.main }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+            <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { main: !editMode.main }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
             <div v-if="!editMode.main" ref="page-text" v-html="pageTextMain" />
             <EditContentPage v-else @onSubmit="editMode = { main: false }" :id="pageText._id" :pageText="pageText" :pageTextRef="$refs['page-text']" />
         </div>
         <div class="edit-icon-container">
-            <a @click="editMode = { grid: !editMode.grid }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+            <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { grid: !editMode.grid }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
             <ContentPageGrid v-if="!editMode.grid" :grid="pageText.content.grid" />
             <EditContentPageGrid v-else @onSubmit="editMode = { grid: false }"  :pageText="pageText" />
         </div>
@@ -22,12 +22,18 @@ import ContentPageGrid from './content-page-grid.component.vue'
 import EditContentPageGrid from '../forms/edit-content-page-grid.component.vue'
 import EditContentPage from '../forms/edit-content-page.component.vue'
 import { PageText, GenericObject } from '../types/content-page.types';
+import { mapGetters } from "vuex";
 
 @Component({
     components: {
         ContentPageGrid,
         EditContentPage,
         EditContentPageGrid
+    },
+    computed: {
+        ...mapGetters({
+            currentUser: "GET_CURRENT_USER"
+        })
     }
 })
 export default class ContentPage extends Vue {
@@ -44,13 +50,8 @@ export default class ContentPage extends Vue {
         },
         editableElements: []
     };
-    private xisAdmin: boolean = false;
-    public set isAdmin(value: boolean) {
-        this.xisAdmin = value;
-    }
-    public get isAdmin(): boolean {
-        return this.xisAdmin;
-    }
+    public currentUser: any;
+
     public set pageText(value: PageText) {
         this.xpageText = value;
     }
@@ -73,7 +74,6 @@ export default class ContentPage extends Vue {
             { params: { page: this.$route.name } }
         ).then(response => {
             this.pageText = response.data.pageTexts[0]
-            this.isAdmin = response.data.isAdmin
         })
     }
 }

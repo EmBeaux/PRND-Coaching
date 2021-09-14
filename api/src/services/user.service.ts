@@ -22,6 +22,7 @@ export default {
             res.send({
               success: true,
               message: "Login successful",
+              token: req["session"].passport.user
             })
           })
       }    
@@ -92,11 +93,17 @@ export default {
       message: "Logout successful"
     })
   },
-  currentUser(req: Request, res: Response) {
-    let user = User.findOne({_id: req['session'].passport.user})
-  
-    console.log([user, req["session"]])
-  
-    res.send({ success: true, user })
+  async currentUser(req: Request, res: Response) {
+    let user;
+    if (req.headers.authorization) {
+      let token = req.headers.authorization
+      if (token && token.includes("Bearer ")) {
+        token = req.headers.authorization.split("Bearer ")[1]
+      }
+      user = await User.findOne({ _id: token }).select({ fullName: 1, email: 1, isAdmin: 1 })
+    } else {
+      user = null
+    }
+    res.send({ success: !!user, user })
   }
 }

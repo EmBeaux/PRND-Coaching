@@ -29,37 +29,9 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import Modal from "./modal.component.vue";
-import { apiCall } from '../../library/api.helper';
 
-@Component({
-    components: {
-        Modal
-    }
-})
-export default class Footer extends Vue {
-    private xsignOutModal: boolean = false;
-    public set signOutModal(value: boolean) {
-        this.xsignOutModal = value;
-    }
-    public get signOutModal(): boolean {
-        return this.xsignOutModal;
-    }
-    public get window(): Window {
-        return window;
-    }
-    public logOut() {
-        apiCall<{ data: { success: boolean, message: string, userToken: string } }>(
-            "post",
-            "users/logout",
-            {},
-            {}
-        ).then(() => {
-            window.localStorage.removeItem('userToken')
-            this.signOutModal = false;
-        })
-    }
-}
+@Component
+export default class Footer extends Vue {}
 </script>
 
 <style>

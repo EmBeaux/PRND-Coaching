@@ -26,7 +26,8 @@
       "@types/node",
       "@nuxt/vue-app",
       "webpack-env",
-      "@nuxt/types"
+      "@nuxt/types",
+      "@nuxtjs/auth-next"
     ], 
     "lib": [
       "esnext",

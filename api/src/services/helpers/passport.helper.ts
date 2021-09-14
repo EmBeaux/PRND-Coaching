@@ -29,7 +29,7 @@ export default function(passport) {
         
     )
     passport.serializeUser((user, done) => {
-        done(null, user.id)
+        done(null, user._id)
     })
     passport.deserializeUser((id, done) => {
         let user = User.findOne({ _id: id })

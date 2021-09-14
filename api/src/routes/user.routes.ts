@@ -10,6 +10,7 @@ export default (app: Express) => {
         ...routes,
         login: app.post(`/users/login`, (req: Request, res: Response, next) => { userServices.login(req, res, next) }),
         signup: app.post('/users/signup', (req: Request, res: Response) => { userServices.signup(req, res) }),
-        logout: app.post('/users/logout', (req: Request, res: Response) => { userServices.logout(req, res) })
+        logout: app.post('/users/logout', (req: Request, res: Response) => { userServices.logout(req, res) }),
+        currentUser: app.get('/users/currentUser', (req: Request, res: Response) => { userServices.currentUser(req, res) })
     }
 }

@@ -9,11 +9,23 @@
 import { Vue, Component } from "vue-property-decorator";
 import HeaderNav from "../components/global/header-nav.component.vue";
 import Footer from "../components/global/footer.component.vue";
+import { mapActions } from "vuex";
 
 @Component({
-  components: { HeaderNav, Footer }
+  components: { HeaderNav, Footer },
+  methods: {
+    ...mapActions({
+      setCurrentUser: "SET_CURRENT_USER"
+    })
+  },
 })
-export default class Default extends Vue {}
+export default class Default extends Vue {
+  private setCurrentUser: (payload: any) => void;
+
+  mounted() {
+    this.setCurrentUser(this.$store['$auth'].$state.user)
+  }
+}
 </script>
 
 <style>

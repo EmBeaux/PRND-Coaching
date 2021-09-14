@@ -1,5 +1,6 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  devtools: true,
   head: {
     title: 'PRND-Coaching',
     htmlAttrs: {
@@ -36,7 +37,8 @@ export default {
     '@/plugins/VueMq',
     '@/plugins/vue-mdi',
     { src: '@/plugins/vue-calendly', ssr: false },
-    { src: '@plugins/vue-burger-menu', ssr: false }
+    { src: '@plugins/vue-burger-menu', ssr: false },
+    '@/plugins/vuex'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -49,9 +51,37 @@ export default {
     '@nuxtjs/dotenv'
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          type: ''
+        },
+        user: {
+          property: 'user',
+        },
+        endpoints: {
+          login: {
+            url: "/users/login",
+            method: "post",
+            propertyName: 'token'
+          },
+          logout: { url: "/users/logout", method: "post" },
+          user: { url: "/users/currentUser", method: "get", property: "user" },
+        },
+        tokenType: ''
+      },
+    },
+  },
+  axios: {
+    baseURL: 'http://localhost:3001/'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

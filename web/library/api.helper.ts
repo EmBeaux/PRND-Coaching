@@ -1,4 +1,4 @@
-import axios from "./axios.helper"
+import axios from "axios";
 import { GenericObject } from "../components/types/content-page.types";
 
 type Methods =
@@ -19,5 +19,5 @@ export const apiCall: ApiCallGenericReturn = async (method: Methods, record: Str
         url += '?' + queryString;
     }
 
-    return await axios.request({ url, method, data: data, headers: { "credentials": "include", "withCredentials": true } })
+    return await axios.create({baseURL: process.env.API_URL}).request({ url, method, data: data, headers: { "credentials": "include", "withCredentials": true } })
 }

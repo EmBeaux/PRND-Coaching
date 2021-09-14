@@ -22,7 +22,7 @@
                         Blog
                     </NuxtLink>
                 </div>
-                <NuxtLink v-if="!window.localStorage.getItem('userToken')" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
+                <NuxtLink v-if="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
                     Sign In
                 </NuxtLink>
                 <a v-else @click="signOutModal = true" class="header-nav-item" :style="{ padding: '0 10px' }">
@@ -74,32 +74,37 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Modal from "./modal.component.vue";
-import { apiCall } from '../../library/api.helper';
+import { mapActions, mapGetters } from "vuex";
 
 @Component({
     components: {
         Modal
+    },
+    methods: {
+        ...mapActions({
+            setCurrentUser: "SET_CURRENT_USER"
+        })
+    },
+    computed: {
+        ...mapGetters({
+            currentUser: "GET_CURRENT_USER"
+        })
     }
 })
 export default class HeaderNav extends Vue {
     private xsignOutModal: boolean = false;
+    public currentUser: any;
+    public setCurrentUser: (payload: any) => void;
+
     public set signOutModal(value: boolean) {
         this.xsignOutModal = value;
     }
     public get signOutModal(): boolean {
         return this.xsignOutModal;
     }
-    public get window(): Window {
-        return window;
-    }
     public logOut() {
-        apiCall<{ data: { success: boolean, message: string, userToken: string } }>(
-            "post",
-            "users/logout",
-            {},
-            {}
-        ).then(() => {
-            window.localStorage.removeItem('userToken')
+        this["$auth"].logout('local').then(() => {
+            this.setCurrentUser({})
             this.signOutModal = false;
         })
     }

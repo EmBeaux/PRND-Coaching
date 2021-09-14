@@ -15,13 +15,25 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import { apiCall } from '../../library/api.helper';
+import { mapActions, mapGetters } from "vuex";
 
-@Component
+@Component({
+    methods: {
+        ...mapActions({
+            setCurrentUser: "SET_CURRENT_USER"
+        })
+    },
+    computed: {
+        ...mapGetters({
+            currentUser: "GET_CURRENT_USER"
+        })
+    }
+})
 export default class Login extends Vue {
     private xemail: string = "";
     private xpassword: string = "";
     private xerrorText: string = "";
+    private setCurrentUser: (payload: any) => void;
 
     public get errorText(): string {
         return this.xerrorText;
@@ -43,18 +55,14 @@ export default class Login extends Vue {
         this.xpassword = value;
     }
 
-    public onLogin() {
-        apiCall<{ data: { success: boolean, message: string, userToken: string } }>(
-            "post",
-            "users/login",
-            {},
-            { email: this.email, password: this.password }
-        ).then(response => {
-            window.localStorage.setItem('userToken', response.data.userToken)
-            this.$router.push({ path: '/home' })
-        })
-        .catch(error => {
-            this.errorText = "Incorrect Email or Password";
+    public async onLogin() {
+        await this["$auth"].loginWith('local', {
+            data: {
+                email: this.email,
+                password: this.password
+            }
+        }).then(() => {
+            this.setCurrentUser(this.$store['$auth'].$state.user)
         })
     }
 }
