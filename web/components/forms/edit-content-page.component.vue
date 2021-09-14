@@ -9,18 +9,26 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { apiCall } from '../../library/api.helper';
 import { GridItem, PageText } from '../types/content-page.types';
+import { mapGetters, mapActions } from "vuex";
 
 interface EditableInputs {
     [key: string]: string
 }
 
-@Component
+@Component({
+    methods: {
+        ...mapActions({
+            setSinglePageText: "SET_SINGLE_PAGE_TEXT"
+        })
+    }
+})
 export default class EditContentPage extends Vue {
     @Prop() readonly pageText: PageText
     @Prop() readonly pageTextRef: Element
     @Prop() readonly id: string
     private xeditableInputs: EditableInputs = {};
     private xloaded: boolean = false;
+    private setSinglePageText: (payload: { name: string, value: PageText }) => void;
 
     public get editableInputs(): EditableInputs {
         return this.xeditableInputs;
@@ -57,6 +65,9 @@ export default class EditContentPage extends Vue {
         ).then(response => {
             if (response.data.success) {
                 this.$emit('onSubmit')
+                if (this.$route.name) {
+                    this.setSinglePageText({ name: this.$route.name, value: this.pageText })
+                }
             }
         })
 
