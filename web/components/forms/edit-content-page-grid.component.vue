@@ -5,6 +5,7 @@
                 <mdicon v-if="gridItem.icon" :name="gridItem.icon" /> 
                 <textarea class="grid-item-title" v-model="gridItem.title" :style="{ color: gridItem.image && '#B90101' }"></textarea>
                 <textarea class="grid-item-description" v-model="gridItem.description"></textarea>
+                <textarea v-if="gridItem.name" class="grid-item-name" v-model="gridItem.name"></textarea>
                 <textarea
                     v-if="gridItem.buttonText"
                     type="button"

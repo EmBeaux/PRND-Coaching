@@ -67,6 +67,11 @@ export default class AboutMeIndex extends Vue {}
 }
 
 @media (max-width: 767px) {
+  .content {
+    width: 100%;
+    max-width: 100%;
+  }
+  
   .headshot {
     width: 40vh;
   }

@@ -5,6 +5,7 @@ export interface GridItem {
     icon?: string,
     title: string,
     description: string,
+    name?: string,
     buttonText?: string,
     modalType?: string,
     image?: string,
