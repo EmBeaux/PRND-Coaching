@@ -9,7 +9,6 @@
     "build:framevuerk": "framevuerk-builder -c ./framevuerk-config.js",
     "dev": "nuxt",
     "generate": "nuxt generate",
-    "prepublish": "npm run build:framevuerk",
     "start": "nuxt start",
     "test": "npm run test:unit && npm run test:e2e",
     "heroku-postbuild": "npm run build"
