@@ -65,6 +65,7 @@ export default {
           });
 
           bcrypt.genSalt(10, (err, salt) => {
+            // @ts-expect-error
             bcrypt.hash(newUser.password ,salt, (err,hash)=> {
               if(err) {
                 res.send({
@@ -72,6 +73,7 @@ export default {
                   messages: [err]
                 })
               } else {
+                // @ts-expect-error
                 newUser.password = hash;
                 newUser.save().then((value) => {
                   res.send({

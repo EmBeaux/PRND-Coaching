@@ -9,7 +9,8 @@ import passport from "passport";
 import cookieSession from "cookie-session";
 import passportHelper from "./services/helpers/passport.helper"
 
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect(process.env.DB_URL || 'mongodb://localhost:27017');
+console.log("whoop")
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", function(callback: Function){

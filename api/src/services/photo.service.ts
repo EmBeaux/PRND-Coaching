@@ -6,7 +6,7 @@ export default {
   ...serviceHelper(Photo, 'photo'),
   create(req: Request | any, res: Response) {
     if (req.files && req.files.length > 0) {
-      const savedFiles: typeof Photo[] = []
+      const savedFiles: any[] = []
       req.files.forEach(file => {
         const newRecord = new Photo({ ...file })
         newRecord.save((error: any) => {
