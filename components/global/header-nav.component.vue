@@ -1,10 +1,10 @@
 <template>
     <div class="sticky">
         <div class="header">
-            <div v-if="$route.name !== 'login'" class="header-logo">
+            <div v-show="$route.name !== 'login'" class="header-logo">
                 <img width="125" src="/header-logo-dark.png" />
             </div>
-            <div v-if="$mq === 'lg'" class="header-nav">
+            <div v-show="$mq === 'lg'" class="header-nav">
                 <div>
                     <NuxtLink to="/" class="header-nav-item">
                         Home
@@ -22,7 +22,7 @@
                         Blog
                     </NuxtLink>
                 </div>
-                <NuxtLink v-if="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
+                <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
                     Sign In
                 </NuxtLink>
                 <a v-else @click="signOutModal = true" class="header-nav-item" :style="{ padding: '0 10px' }">
@@ -45,7 +45,7 @@
                 <NuxtLink to="/blog">
                     Blog
                 </NuxtLink>
-                <NuxtLink v-if="!currentUser|| (currentUser && !currentUser.email)" to="/login">
+                <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login">
                     Sign In
                 </NuxtLink>
                 <a v-else @click="signOutModal = true">
@@ -55,7 +55,7 @@
         </div>
         <hr class="divider" />
         <Modal
-            v-if="signOutModal"
+            v-show="signOutModal"
             v-on:close="signOutModal = false"
         >
             <template #header>

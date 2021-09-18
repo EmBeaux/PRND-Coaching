@@ -81,6 +81,9 @@ export default {
   axios: {
     baseURL: 'http://localhost:3001/'
   },
+  port: {
+    port: process.env.PORT || 8000
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
