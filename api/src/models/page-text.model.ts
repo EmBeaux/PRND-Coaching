@@ -18,6 +18,10 @@ const PageTextSchema = new Schema({
                 type: String,
                 required: true,
             },
+            name: {
+                type: String,
+                required: false,
+            },
             buttonText: {
                 type: String,
                 required: false,
