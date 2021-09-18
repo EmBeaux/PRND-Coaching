@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npm install & nuxt-ts build",
+    "build": "npm install & nuxt build",
     "test:unit": "cross-env TEST=unit ava ./test/specs/**/*",
     "test:e2e": "cross-env TEST=e2e ava ./test/e2e/**/*",
     "build:framevuerk": "framevuerk-builder -c ./framevuerk-config.js",
