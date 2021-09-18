@@ -42,6 +42,7 @@
 ],
   "exclude": [
     "node_modules",
-    "framevuerk-config.js"
+    "framevuerk-config.js",
+    "api"
   ]
 }
