@@ -37,8 +37,7 @@ export default {
     '@/plugins/VueMq',
     '@/plugins/vue-mdi',
     { src: '@/plugins/vue-calendly', ssr: false },
-    { src: '@plugins/vue-burger-menu', ssr: false },
-    '@/plugins/vuex'
+    { src: '@plugins/vue-burger-menu', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
