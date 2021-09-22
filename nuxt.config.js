@@ -23,7 +23,7 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.API_URL || 'http://localhost:3001'
+    API_URL: process.env.API_URL || 'http://localhost:3001',
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
