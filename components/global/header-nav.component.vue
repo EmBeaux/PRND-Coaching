@@ -181,10 +181,11 @@ export default class HeaderNav extends Vue {
     position: absolute;
     flex-direction: column;
     display: flex;
-    background: #f7f7f7;
+    background: #8F1E1E;
     border: 1px solid rgba(128,128,128,.3);
     border-top: none;
     border-radius: 3px;
+    color: white;
 }
 
 .sub-nav-options-mobile {
@@ -196,6 +197,10 @@ export default class HeaderNav extends Vue {
 .sub-option {
     margin-top: 7px;
     margin-bottom: 6px;
+}
+
+.sub-option:hover {
+    color: white !important;
 }
 
 .sub-option-mobile {
@@ -211,7 +216,7 @@ export default class HeaderNav extends Vue {
 }
 
 .header-nav-item:hover {
-    color: #b7523f;
+    color: #8F1E1E;
     text-decoration: underline;
 }
 
