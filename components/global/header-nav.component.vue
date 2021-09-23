@@ -1,77 +1,79 @@
 <template>
     <div class="sticky">
-        <div class="header">
-            <div v-show="$route.name !== 'login'" class="header-logo">
-                <img width="125" src="/header-logo-dark.png" />
-            </div>
-            <div v-show="$mq === 'lg'" class="header-nav">
-                <div>
-                    <NuxtLink to="/" class="header-nav-item">
+        <no-ssr>
+            <div class="header">
+                <div v-show="$route.name !== 'login'" class="header-logo">
+                    <img width="125" src="/header-logo-dark.png" />
+                </div>
+                <div v-show="$mq === 'lg'" class="header-nav">
+                    <div>
+                        <NuxtLink to="/" class="header-nav-item">
+                            Home
+                        </NuxtLink>
+                        <NuxtLink to="/about-me" class="header-nav-item">
+                            About Me
+                        </NuxtLink>
+                        <NuxtLink to="/testimonials" class="header-nav-item">
+                            Testimonials
+                        </NuxtLink>
+                        <NuxtLink to="/coaching" class="header-nav-item">
+                            Coaching
+                        </NuxtLink>
+                        <NuxtLink to="/blog" class="header-nav-item">
+                            Blog
+                        </NuxtLink>
+                    </div>
+                    <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
+                        Sign In
+                    </NuxtLink>
+                    <a v-show="currentUser && currentUser.email" @click="signOutModal = true" class="header-nav-item" :style="{ padding: '0 10px' }">
+                        Sign Out
+                    </a>
+                </div>
+                <Slide right closeOnNavigation class="burger-menu" v-show="$mq !== 'lg'">
+                    <NuxtLink to="/">
                         Home
                     </NuxtLink>
-                    <NuxtLink to="/about-me" class="header-nav-item">
+                    <NuxtLink to="/about-me">
                         About Me
                     </NuxtLink>
-                    <NuxtLink to="/testimonials" class="header-nav-item">
+                    <NuxtLink to="/testimonials">
                         Testimonials
                     </NuxtLink>
-                    <NuxtLink to="/coaching" class="header-nav-item">
+                    <NuxtLink to="/coaching">
                         Coaching
                     </NuxtLink>
-                    <NuxtLink to="/blog" class="header-nav-item">
+                    <NuxtLink to="/blog">
                         Blog
                     </NuxtLink>
-                </div>
-                <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
-                    Sign In
-                </NuxtLink>
-                <a v-show="currentUser && currentUser.email" @click="signOutModal = true" class="header-nav-item" :style="{ padding: '0 10px' }">
-                    Sign Out
-                </a>
+                    <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login">
+                        Sign In
+                    </NuxtLink>
+                    <a v-show="currentUser && currentUser.email" @click="signOutModal = true">
+                        Sign Out
+                    </a>
+                </Slide>
             </div>
-            <Slide right closeOnNavigation class="burger-menu" v-show="$mq !== 'lg'">
-                <NuxtLink to="/">
-                    Home
-                </NuxtLink>
-                <NuxtLink to="/about-me">
-                    About Me
-                </NuxtLink>
-                <NuxtLink to="/testimonials">
-                    Testimonials
-                </NuxtLink>
-                <NuxtLink to="/coaching">
-                    Coaching
-                </NuxtLink>
-                <NuxtLink to="/blog">
-                    Blog
-                </NuxtLink>
-                <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login">
-                    Sign In
-                </NuxtLink>
-                <a v-show="currentUser && currentUser.email" @click="signOutModal = true">
-                    Sign Out
-                </a>
-            </Slide>
-        </div>
-        <hr class="divider" />
-        <Modal
-            v-show="signOutModal"
-            v-on:close="signOutModal = false"
-        >
-            <template #header>
-                Are you sure you want to sign out?
-            </template>
-
-            <template #body>
-                <div class="sign-out-wrapper">
+            <hr class="divider" />
+            <Modal
+                v-show="signOutModal"
+                v-on:close="signOutModal = false"
+            >
+                <template #header>
                     Are you sure you want to sign out?
-                    <div class="sign-out-buttons">
-                        <button @click="logOut" class="fv-button fv-secondary image-button"> Confirm </button>
-                        <button @click="this.signOutModal = false" class="fv-button fv-secondary image-button"> Cancel </button>
+                </template>
+
+                <template #body>
+                    <div class="sign-out-wrapper">
+                        Are you sure you want to sign out?
+                        <div class="sign-out-buttons">
+                            <button @click="logOut" class="fv-button fv-secondary image-button"> Confirm </button>
+                            <button @click="this.signOutModal = false" class="fv-button fv-secondary image-button"> Cancel </button>
+                        </div>
                     </div>
-                </div>
-            </template>
-        </Modal>
+                </template>
+            </Modal>
+        </no-ssr>
     </div>
 </template>
 <script lang="ts">
