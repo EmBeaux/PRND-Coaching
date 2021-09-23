@@ -48,7 +48,7 @@ export default class AboutMeIndex extends Vue {}
     width: 30%;
     color: #FAF9F6;
     font-weight: bolder;
-    font-size: 45px;
+    font-size: 32px;
     text-shadow: 4px 6px 3px rgb(0 0 0 / 30%);
     word-wrap: break-word;
     margin-top: 1em;
@@ -58,7 +58,7 @@ export default class AboutMeIndex extends Vue {}
     width: 75%;
     color: white;
     font-weight: bolder;
-    font-size: 22px;
+    font-size:18px;
     padding: 70px;
     word-wrap: break-word;
 }
@@ -93,7 +93,7 @@ export default class AboutMeIndex extends Vue {}
     }
 
     .information-color-text {
-        font-size: 20px;
+        font-size: 16px;
         padding-top: 10px;
         padding: 0;
         margin-top: 4em;
@@ -132,7 +132,7 @@ export default class AboutMeIndex extends Vue {}
     .information-color-text {
         padding: 0;
         padding-top: 10px;
-        font-size: 18px;
+        font-size: 14px;
         width: 95%;
     }
 }

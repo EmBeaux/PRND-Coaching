@@ -1,18 +1,27 @@
 <template>
-  <div class="content fv-padding">
-    <div v-if="!loading" class="content__header fv-margin-bottom fv-padding">
-        <div class="edit-icon-container">
-            <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { main: !editMode.main }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
-            <div v-if="!editMode.main" ref="page-text" v-html="this.$route.name && this.pageTexts[this.$route.name] ? this.pageTexts[this.$route.name].content.main.replace(String.fromCharCode(92), '') : ''" />
-            <EditContentPage v-else @onSubmit="editMode = { main: false }" :id="pageTexts[$route.name]._id" :pageText="pageTexts[$route.name]" :pageTextRef="$refs['page-text']" />
-        </div>
-        <div class="edit-icon-container">
-            <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { grid: !editMode.grid }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
-            <ContentPageGrid v-if="!editMode.grid" :grid="this.pageTexts[this.$route.name] ? pageTexts[$route.name].content.grid : []" />
-            <EditContentPageGrid v-else @onSubmit="editMode = { grid: false }"  :pageText="pageTexts[$route.name]" />
+    <div class="content fv-padding">
+        <div v-if="!loading" class="content__header fv-margin-bottom fv-padding">
+            <div class="edit-icon-container">
+                <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { main: !editMode.main }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+                <div v-if="!editMode.main" ref="page-text" v-html="$route.name && pageTexts[$route.name] ? pageTexts[$route.name].content.main.replace(String.fromCharCode(92), '') : ''" />
+                <EditContentPage v-else @onSubmit="editMode = { main: false }" :id="pageTexts[$route.name]._id" :pageText="pageTexts[$route.name]" :pageTextRef="$refs['page-text']" />
+            </div>
+            <div v-if="$route.name && pageTexts[$route.name] && pageTexts[$route.name].content.grid" class="edit-icon-container">
+                <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { grid: !editMode.grid }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+                <ContentPageGrid v-if="!editMode.grid" :grid="pageTexts[$route.name] ? pageTexts[$route.name].content.grid : []" />
+                <EditContentPageGrid v-else @onSubmit="editMode = { grid: false }"  :pageText="pageTexts[$route.name]" />
+            </div>
+            <div v-if="$route.name && pageTexts[$route.name] && pageTexts[$route.name].content.calendly" class="edit-icon-container">
+                <a v-if="currentUser && currentUser.isAdmin" @click="editMode = { calendly: !editMode.calendly }" class="edit-icon"><mdicon name="pencil-box-multiple-outline" /></a>
+                <vue-calendly v-if="!editMode.calendly" :url="pageTexts[$route.name].content.calendly" :height="600"></vue-calendly>
+                <div v-else>
+                    <input type="text" v-model="pageTexts[$route.name].content.calendly">
+                    <button> Submit </button>
+                </div>
+
+            </div>
         </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -45,7 +54,8 @@ import { mapGetters, mapActions } from "vuex";
 export default class ContentPage extends Vue {
     private xeditMode: GenericObject = {
         main: false,
-        grid: false
+        grid: false,
+        calendly: false
     };
     private xloading: boolean = false;
     public currentUser: any;

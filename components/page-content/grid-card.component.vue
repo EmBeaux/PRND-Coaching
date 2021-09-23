@@ -25,7 +25,7 @@
             </template>
 
             <template #body>
-                <vue-calendly :url="calendlyURL" :height="600"></vue-calendly>
+                <vue-calendly :url="calendlyURL" :height="1000"></vue-calendly>
             </template>
         </Modal>
     </div>

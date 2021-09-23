@@ -17,6 +17,12 @@ export default class AboutMeIndex extends Vue {}
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
+.content {
+  font-family: 'Noto Serif';
+  margin: 0 auto;
+  max-width: 80%;
+}
+
 .introduction-container {
   display: flex;
   flex-direction: row;
