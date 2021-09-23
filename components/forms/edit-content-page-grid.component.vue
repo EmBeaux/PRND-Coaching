@@ -1,7 +1,7 @@
 <template>
     <div class="modal-grid-edit">
         <div class="modal-grid">
-            <div v-for="gridItem in formGrid" :key="gridItem._id" class="edit-grid-item">
+            <div v-for="(gridItem, i) in formGrid" :key="gridItem._id + `${i}`" class="edit-grid-item">
                 <mdicon v-if="gridItem.icon" :name="gridItem.icon" /> 
                 <textarea class="grid-item-title" v-model="gridItem.title" :style="{ color: gridItem.image && '#B90101' }"></textarea>
                 <textarea class="grid-item-description" v-model="gridItem.description"></textarea>
@@ -169,6 +169,7 @@ export default class EditContentPageGrid extends Vue {
         });
     }
     public addGridItem() {
+        // @ts-expect-error
         this.formGrid = [...this.formGrid, { name: "John Doe", description: "This is a temporary testimonial", title: "Job title" }]
     }
     mounted() {
