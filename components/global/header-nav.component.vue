@@ -48,7 +48,7 @@
                 <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login">
                     Sign In
                 </NuxtLink>
-                <a v-else @click="signOutModal = true">
+                <a v-show="currentUser && currentUser.email" @click="signOutModal = true">
                     Sign Out
                 </a>
             </Slide>
