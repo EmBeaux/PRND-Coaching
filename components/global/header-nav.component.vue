@@ -37,7 +37,7 @@
                         Sign Out
                     </a>
                 </div>
-                <Slide right closeOnNavigation class="burger-menu" v-show="$mq !== 'lg'">
+                <Slide right class="burger-menu" v-show="$mq !== 'lg'">
                     <NuxtLink to="/">
                         Home
                     </NuxtLink>
@@ -47,9 +47,15 @@
                     <NuxtLink to="/testimonials">
                         Testimonials
                     </NuxtLink>
-                    <NuxtLink to="/coaching">
-                        Coaching
-                    </NuxtLink>
+                    <div class="sub-nav-wrapper-mobile">
+                        <a @click="coachNav = !coachNav">
+                            Coaching
+                        </a>
+                        <div class="sub-nav-options-mobile" v-if="coachNav">
+                            <NuxtLink to="/coaching/individual" class="sub-option-mobile"> Individual </NuxtLink>
+                            <NuxtLink to="/coaching/corporate" class="sub-option-mobile"> Corporate</NuxtLink>
+                        </div>
+                    </div>
                     <NuxtLink to="/blog">
                         Blog
                     </NuxtLink>
@@ -166,6 +172,11 @@ export default class HeaderNav extends Vue {
     position: relative;
 }
 
+.sub-nav-wrapper-mobile {
+    display: flex;
+    flex-direction: column;
+}
+
 .sub-nav-options {
     position: absolute;
     flex-direction: column;
@@ -176,9 +187,19 @@ export default class HeaderNav extends Vue {
     border-radius: 3px;
 }
 
+.sub-nav-options-mobile {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1em;
+}
+
 .sub-option {
     margin-top: 7px;
     margin-bottom: 6px;
+}
+
+.sub-option-mobile {
+    margin-top: .5em;
 }
 
 .header-nav-item {
