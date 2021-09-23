@@ -29,6 +29,9 @@
                     </template>
                 </Modal>
             </div>
+            <div v-if="$route && $route.name === 'testimonials'" class="edit-grid-item">
+                <a @click="addGridItem"><mdicon name="file-plus" /></a>
+            </div>
         </div>
         <button @click="onSubmitGrid"> Submit </button>
     </div>
@@ -90,7 +93,11 @@ export default class EditContentPageGrid extends Vue {
     }
     public async onSubmitGrid() {
         const clonedPageText = JSON.parse(JSON.stringify(this.syncedPageText));
-        for (let i = 0; i < this.syncedPageText.content.grid.length; i++) {
+        for (let i = 0; i < this.formGrid.length; i++) {
+            if (!this.syncedPageText.content.grid[i]) {
+                this.syncedPageText.content.grid.push(this.formGrid[i])
+                clonedPageText.content.grid.push(this.formGrid[i])
+            }
             let syncedPageGridItem = this.syncedPageText.content.grid[i]
             let clonedPageGridItem = clonedPageText.content.grid[i]
             const formGridItem = this.formGrid[i];
@@ -160,6 +167,9 @@ export default class EditContentPageGrid extends Vue {
         .catch(err => {
 
         });
+    }
+    public addGridItem() {
+        this.formGrid = [...this.formGrid, { name: "John Doe", description: "This is a temporary testimonial", title: "Job title" }]
     }
     mounted() {
         this.formGrid = JSON.parse(JSON.stringify(this.syncedPageText.content.grid));

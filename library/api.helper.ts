@@ -18,6 +18,6 @@ export const apiCall: ApiCallGenericReturn = async (method: Methods, record: Str
         const queryString = Object.keys(query.params).map(key => key + '=' + query.params[key]).join('&');
         url += '?' + queryString;
     }
-console.log(process.env, "process env HITTING HERE")
+
     return await axios.create({baseURL: process.env.API_URL}).request({ url, method, data: data, headers: { "credentials": "include", "withCredentials": true } })
 }
