@@ -25,11 +25,11 @@
                 <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
                     Sign In
                 </NuxtLink>
-                <a v-else @click="signOutModal = true" class="header-nav-item" :style="{ padding: '0 10px' }">
+                <a v-show="currentUser && currentUser.email" @click="signOutModal = true" class="header-nav-item" :style="{ padding: '0 10px' }">
                     Sign Out
                 </a>
             </div>
-            <Slide right closeOnNavigation class="burger-menu" v-else>
+            <Slide right closeOnNavigation class="burger-menu" v-show="$mq !== 'lg'">
                 <NuxtLink to="/">
                     Home
                 </NuxtLink>
