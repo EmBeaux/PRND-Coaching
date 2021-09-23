@@ -6,7 +6,7 @@
                     <img width="125" src="/header-logo-dark.png" />
                 </div>
                 <div v-show="$mq === 'lg'" class="header-nav">
-                    <div>
+                    <div class="header-nav-base">
                         <NuxtLink to="/" class="header-nav-item">
                             Home
                         </NuxtLink>
@@ -16,12 +16,19 @@
                         <NuxtLink to="/testimonials" class="header-nav-item">
                             Testimonials
                         </NuxtLink>
-                        <NuxtLink to="/coaching" class="header-nav-item">
-                            Coaching
-                        </NuxtLink>
+                        <div  @mouseover="coachNav = true" @mouseleave="coachNav = false" class="sub-nav-wrapper">
+                            <a class="header-nav-item">
+                                Coaching
+                            </a>
+                            <div class="sub-nav-options" v-if="coachNav">
+                                <a href="/coaching/individual" class="header-nav-item sub-option"> Individual </a>
+                                <a href="/coaching/corporate" class="header-nav-item sub-option"> Corporate</a>
+                            </div>
+                        </div>
                         <NuxtLink to="/blog" class="header-nav-item">
                             Blog
                         </NuxtLink>
+
                     </div>
                     <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
                         Sign In
@@ -68,7 +75,7 @@
                         Are you sure you want to sign out?
                         <div class="sign-out-buttons">
                             <button @click="logOut" class="fv-button fv-secondary image-button"> Confirm </button>
-                            <button @click="this.signOutModal = false" class="fv-button fv-secondary image-button"> Cancel </button>
+                            <button @click="signOutModal = false" class="fv-button fv-secondary image-button"> Cancel </button>
                         </div>
                     </div>
                 </template>
@@ -98,6 +105,7 @@ import { mapActions, mapGetters } from "vuex";
 })
 export default class HeaderNav extends Vue {
     private xsignOutModal: boolean = false;
+    private xcoachNav: boolean = false;
     public currentUser: any;
     public setCurrentUser: (payload: any) => void;
 
@@ -106,6 +114,12 @@ export default class HeaderNav extends Vue {
     }
     public get signOutModal(): boolean {
         return this.xsignOutModal;
+    }
+    public set coachNav(value: boolean) {
+        this.xcoachNav = value;
+    }
+    public get coachNav(): boolean {
+        return this.xcoachNav;
     }
     public logOut() {
         this["$auth"].logout('local').then(() => {
@@ -144,8 +158,31 @@ export default class HeaderNav extends Vue {
     width: 100%;
 }
 
+.header-nav-base {
+    display: flex;
+}
+
+.sub-nav-wrapper {
+    position: relative;
+}
+
+.sub-nav-options {
+    position: absolute;
+    flex-direction: column;
+    display: flex;
+    background: #f7f7f7;
+    border: 1px solid rgba(128,128,128,.3);
+    border-top: none;
+    border-radius: 3px;
+}
+
+.sub-option {
+    margin-top: 7px;
+    margin-bottom: 6px;
+}
+
 .header-nav-item {
-    padding: 10px 15px;
+    padding: 0px 15px;
     padding-bottom: 0;
     font-size: 16px;
     border-radius: 5px;
@@ -192,7 +229,7 @@ export default class HeaderNav extends Vue {
     margin-top: 5%;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
     .header {
         display: flex;
         justify-content: space-between;
