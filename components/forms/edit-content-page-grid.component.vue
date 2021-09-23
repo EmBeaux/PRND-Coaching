@@ -1,7 +1,7 @@
 <template>
     <div class="modal-grid-edit">
         <div class="modal-grid">
-            <div v-for="gridItem in formGrid" :key="gridItem._id" class="edit-grid-item">
+            <div v-for="(gridItem, i) in formGrid" :key="gridItem._id + `${i}`" class="edit-grid-item">
                 <mdicon v-if="gridItem.icon" :name="gridItem.icon" /> 
                 <textarea class="grid-item-title" v-model="gridItem.title" :style="{ color: gridItem.image && '#B90101' }"></textarea>
                 <textarea class="grid-item-description" v-model="gridItem.description"></textarea>
@@ -28,6 +28,9 @@
                         <FileUpload v-if="gridItem.image" :id="gridItem._id" @imageChange="onImageChange($event, gridItem._id)" /> 
                     </template>
                 </Modal>
+            </div>
+            <div v-if="$route && $route.name === 'testimonials'" class="edit-grid-item">
+                <a @click="addGridItem"><mdicon name="file-plus" /></a>
             </div>
         </div>
         <button @click="onSubmitGrid"> Submit </button>
@@ -90,7 +93,11 @@ export default class EditContentPageGrid extends Vue {
     }
     public async onSubmitGrid() {
         const clonedPageText = JSON.parse(JSON.stringify(this.syncedPageText));
-        for (let i = 0; i < this.syncedPageText.content.grid.length; i++) {
+        for (let i = 0; i < this.formGrid.length; i++) {
+            if (!this.syncedPageText.content.grid[i]) {
+                this.syncedPageText.content.grid.push(this.formGrid[i])
+                clonedPageText.content.grid.push(this.formGrid[i])
+            }
             let syncedPageGridItem = this.syncedPageText.content.grid[i]
             let clonedPageGridItem = clonedPageText.content.grid[i]
             const formGridItem = this.formGrid[i];
@@ -160,6 +167,10 @@ export default class EditContentPageGrid extends Vue {
         .catch(err => {
 
         });
+    }
+    public addGridItem() {
+        // @ts-expect-error
+        this.formGrid = [...this.formGrid, { name: "John Doe", description: "This is a temporary testimonial", title: "Job title" }]
     }
     mounted() {
         this.formGrid = JSON.parse(JSON.stringify(this.syncedPageText.content.grid));

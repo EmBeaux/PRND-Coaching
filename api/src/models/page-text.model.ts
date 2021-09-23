@@ -34,7 +34,8 @@ const PageTextSchema = new Schema({
                 type: String,
                 required: false,
             },
-         }]
+        }],
+        calendly: String
     },
     editableElements: [{
         type: String

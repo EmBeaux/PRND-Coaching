@@ -6,23 +6,21 @@
                 <img width="125" src="/header-logo-dark.png" />
             </div>
             <div class="footer-links">
-                <div>
-                    <a href="https://www.google.com" class="footer-nav-item">
-                        Instagram
-                    </a>
-                    <a href="https://www.google.com" class="footer-nav-item">
-                        Facebook
-                    </a>
-                    <a href="https://www.google.com" class="footer-nav-item">
-                        Tiktok
-                    </a>
-                    <a href="https://www.google.com" class="footer-nav-item">
-                        Twitter
-                    </a>
-                    <a href="https://www.google.com" class="footer-nav-item">
-                        Email
-                    </a>
-                </div>
+                <a href="https://www.google.com" class="footer-nav-item">
+                    Instagram
+                </a>
+                <a href="https://www.google.com" class="footer-nav-item">
+                    Facebook
+                </a>
+                <a href="https://www.google.com" class="footer-nav-item">
+                    Tiktok
+                </a>
+                <a href="https://www.google.com" class="footer-nav-item">
+                    Twitter
+                </a>
+                <a href="https://www.google.com" class="footer-nav-item">
+                    Email
+                </a>
             </div>
         </div>
     </div>
@@ -46,6 +44,7 @@ export default class Footer extends Vue {}
 
 .footer-links {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .footer-nav-item {
