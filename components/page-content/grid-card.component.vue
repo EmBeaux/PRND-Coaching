@@ -79,7 +79,7 @@ export default class GridCard extends Vue {
     border: 1px solid rgba(128,128,128,.3);
     border-radius: 5px;
     height: 20em;
-    width: 20em;
+    width: 22em;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

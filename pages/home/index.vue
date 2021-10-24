@@ -24,7 +24,7 @@ export default class AboutMeIndex extends Vue {}
 
 .image-container {
     width: 100%;
-    height: 50vh;
+    min-height: 50vh;
     background-image: url('/stock-about-me.jpg');
     background-repeat: no-repeat;
     background-position: center center;
