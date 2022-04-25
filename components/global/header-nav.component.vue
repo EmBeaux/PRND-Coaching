@@ -25,9 +25,9 @@
                                 <a href="/coaching/corporate" class="header-nav-item sub-option"> Corporate</a>
                             </div>
                         </div>
-                        <NuxtLink to="/blog" class="header-nav-item">
+                        <!-- <NuxtLink to="/blog" class="header-nav-item">
                             Blog
-                        </NuxtLink>
+                        </NuxtLink> -->
 
                     </div>
                     <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login" class="header-nav-item" :style="{ padding: '0 10px' }">
@@ -56,9 +56,9 @@
                             <NuxtLink to="/coaching/corporate" class="sub-option-mobile"> Corporate</NuxtLink>
                         </div>
                     </div>
-                    <NuxtLink to="/blog">
+                    <!-- <NuxtLink to="/blog">
                         Blog
-                    </NuxtLink>
+                    </NuxtLink> -->
                     <NuxtLink v-show="!currentUser|| (currentUser && !currentUser.email)" to="/login">
                         Sign In
                     </NuxtLink>
