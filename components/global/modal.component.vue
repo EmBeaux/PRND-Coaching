@@ -54,6 +54,7 @@ export default class Modal extends Vue {
     display: flex;
     flex-direction: column;
     width: 35%;
+    height: 75%;
   }
 
   .modal-header,
