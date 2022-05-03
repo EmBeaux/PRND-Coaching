@@ -52,8 +52,7 @@ export default {
 
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
-    '@nuxt/typescript-build'
+    '@nuxtjs/auth-next'
   ],
   auth: {
     strategies: {
