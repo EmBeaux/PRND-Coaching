@@ -10,7 +10,8 @@
     "dev": "nuxt",
     "generate": "nuxt generate",
     "start": "nuxt start",
-    "test": "npm run test:unit && npm run test:e2e"
+    "test": "npm run test:unit && npm run test:e2e",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@mdi/js": "^5.9.55",
